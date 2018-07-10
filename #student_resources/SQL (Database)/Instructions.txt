@@ -1,0 +1,2 @@
+DATABASE NAME : salary_management_system
+PASSWORD : 
