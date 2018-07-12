@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2018 at 10:10 AM
+-- Generation Time: Jul 12, 2018 at 07:38 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -40,7 +40,9 @@ CREATE TABLE `employee` (
   `gender` enum('Male','Female') NOT NULL,
   `contact_no` varchar(16) DEFAULT NULL,
   `date_account_created` datetime NOT NULL,
-  `picture` mediumblob NOT NULL
+  `picture` mediumblob NOT NULL,
+  `working_hours` enum('4','8','12') NOT NULL,
+  `working_shift` enum('AM','PM') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -52,6 +54,8 @@ CREATE TABLE `employee` (
 CREATE TABLE `modifications` (
   `id` int(11) NOT NULL,
   `value` double NOT NULL COMMENT '(+) BONUS/REWARD (-) DEDUCTION/FINE',
+  `description` varchar(128) NOT NULL,
+  `schedule` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `salary_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -109,7 +113,7 @@ ALTER TABLE `modifications`
 -- AUTO_INCREMENT for table `salary`
 --
 ALTER TABLE `salary`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
