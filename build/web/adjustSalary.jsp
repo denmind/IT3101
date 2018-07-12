@@ -1,9 +1,11 @@
+<%-- 
+    Document   : adjustSalary
+    Created on : 07 11, 18, 4:46:11 PM
+    Author     : Carah
+--%>
+
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>Adjust Wages</title>
@@ -18,7 +20,7 @@ and open the template in the editor.
             <div class="col-md-12">
                 <nav class="navbar navbar-inverse" style="color: #d9534f ; border-radius: 0px ">
                     <div class="navbar-header" >
-                        <a class="navbar-brand" href="home.html" style="">Salary Management System</a>
+                        <a class="navbar-brand" href="home.jsp" style="">Salary Management System</a>
                     </div>
                     <p class="navbar-text navbar-right" style="margin-right: 10px">Welcome back, <a href="#" class="navbar-link" style="padding-right: 50px">Mark Otto</a><a href="#" class="navbar-link"><span class="glyphicon glyphicon-log-out"></span></a></p>
                 </nav>        
@@ -67,7 +69,7 @@ and open the template in the editor.
                                         <h4 class="modal-title">Base Salary</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form>
+                                        <form action="POST">
                                             <center>
                                                 <label for="newSal">Enter new BASE SALARY / HOUR </label>
                                                 <input type="number" style="width: 30%" class="form-control" placeholder="0" name="fname" id="newSal">
@@ -104,7 +106,7 @@ and open the template in the editor.
                                 <td id="emp_ln">Regudo</td>
                                 <td id="emp_pos">Chef</td>
                                 <td id="emp_sal">999, 999</td>
-                                <td id="edit"  width="150px"><button class="btn btn-default btn-sm btn-primary" data-toggle="modal" data-target="#editSalary">Edit Salary</button></td>
+                                <td id="edit"  width="150px"><button class="btn btn-default btn-sm btn-info" data-toggle="modal" data-target="#editSalary">Edit Salary</button></td>
                             </tr>
 
                         </tbody>
@@ -124,49 +126,12 @@ and open the template in the editor.
                             <h4 class="modal-title">Edit Salary for Mark Otto <!-- REPLACE MARK OTTO WITH EMPLOYEE NAME --></h4>
                         </div>
                         <div class="modal-body">         
-                            <form> 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h4>Employee Working Hours</h4>
-                                        <label><input type="radio" name="workingHours" value="4" style="padding-left: 10px"> 4</label><br>
-                                        <label><input type="radio" name="workingHours" value="8" style="padding-left: 10px"> 8</label><br>
-                                        <label><input type="radio" name="workingHours" value="12" style="padding-left: 10px"> 12</label><br>
-                                    </div>
 
-                                    <div class="col-md-6">
-                                        <h4>Employee Shift</h4>
-                                        <label><input type="radio" name="workingShift" value="am" style="padding-left: 10px"> AM</label><br>
-                                        <label><input type="radio" name="workingShift" value="pm" style="padding-left: 10px"> PM</label><br>
-                                    </div>
-                                </div>
-                                <hr>
-                                
-                                <!-- 
-                                    For BASE SALARY:
-                                
-                                        a new table
-                                
-                                        Employee Positions
-                                
-                                        emp_pos_id emp_pos_name emp_pos_bs (base salary)
-                                
-                                `       In the employees table, a new column will be added: emp_pos_id
-                                
-                                    For Deduction and Bonus:
-                                
-                                        everytime a salary is deducted or added, the amount + reason will be reflected in a table.
-                                
-                                        Salary Modifications (NEW TABLE)
-                                        emp_ID | amount | reason | enum (DEDUCTION OR BONUS) | datetime
-                                
-                                
-                                    MAKE A MODIFIED TABLE.
-                                
-                                -->
-                                
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h4>Salary Bonus</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4>Salary Bonus</h4>
+                                    
+                                    <form method="POST">
                                         <label for="addAmount" style="padding-right: 10px">Amount</label>
                                         <input type="number" class="form-control" id="addAmount" name="addAmount" style="width: 30%; display: inline-block">
                                         <br><br>
@@ -174,12 +139,16 @@ and open the template in the editor.
                                         <input type="text" id="addReason" class="form-control" placeholder="Reason for Adding" style="width: 80%; display: inline-block">
                                         <br><br>
                                         <button type="button" class="btn btn-success">Add to Salary</button>
-                                    </div>
+                                    </form>
+                                    
                                 </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h4>Salary Deduction</h4>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4>Salary Deduction</h4>
+                                    
+                                    <form method="POST">
                                         <label for="deductAmount" style="padding-right: 10px">Amount</label>
                                         <input type="number" class="form-control" id="deductAmount" name="deductAmount" style="width: 30%; display: inline-block">
                                         <br><br>
@@ -187,18 +156,15 @@ and open the template in the editor.
                                         <input type="text" id="deductReason" class="form-control" placeholder="Reason for Deduction" style="width: 80%; display: inline-block">
                                         <br><br>
                                         <button type="button" class="btn btn-danger">Deduct from Salary</button>
-                                    </div>
+                                    </form>
                                 </div>
-                                <hr>
-                                <div class="row" style="padding-left: 20px">
-                                    <h4>Total Salary for this Month</h4>
-                                    <h2>3000.00</h2><!-- THIS SALARY WILL BE SAVED TO THE DATABASE -->
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-default" data-dismiss="modal">Save</button>
-                            <!-- onclick alert are you sure you want to delete 0 ? -->
+                            </div>
+                            <hr>
+                            <div class="row" style="padding-left: 20px">
+                                <h4>Total Salary for this Month</h4>
+                                <h2>3000.00</h2><!-- THIS SALARY WILL BE SAVED TO THE DATABASE -->
+                            </div>
+                      
                         </div>
                     </div>
 

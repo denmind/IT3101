@@ -1,9 +1,11 @@
+<%-- 
+    Document   : home
+    Created on : 07 11, 18, 4:44:50 PM
+    Author     : Carah
+--%>
+
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>Home</title>
@@ -18,7 +20,7 @@ and open the template in the editor.
             <div class="col-md-12">
                 <nav class="navbar navbar-inverse" style="color: #d9534f ; border-radius: 0px ">
                     <div class="navbar-header" >
-                        <a class="navbar-brand" href="home.html" style="">Salary Management System</a>
+                        <a class="navbar-brand" href="home.jsp" style="">Salary Management System</a>
                     </div>
 
                     <p class="navbar-text navbar-right" style="margin-right: 10px">Welcome back, <a href="#" class="navbar-link" style="padding-right: 50px">Mark Otto</a><a href="#" class="navbar-link"><span class="glyphicon glyphicon-log-out"></span></a></p>
@@ -26,13 +28,17 @@ and open the template in the editor.
             </div>
 
         </div>
-        <br><br>
+
+        <div class="row">
+            <center><h3>Employee List</h3></center>
+        </div>
         <div class="row">
             <div class="col-md-12" style="padding: 2%">
                 <div class="row">
                     <div class="col-md-2">
                         <div class="list-group">
-                            <a href="#" class="list-group-item">Adjust Employee Wages</a> <!-- EMPLOYEE TYPES WITH DIFFERENT SALARIES -->
+                            <a href="adjustSalary.jsp" class="list-group-item">Adjust Employee Wages</a> <!-- EMPLOYEE TYPES WITH DIFFERENT SALARIES -->
+                            <a href="salaryModifications.jsp" class="list-group-item">Recent Salary Modifications</a> 
                         </div>
                         <div class="list-group"><!-- MODAL! EMPLOYEE CUD-->
                             <a href="#" class="list-group-item" data-toggle="modal" data-target="#addEmployee">Add New Employee</a>
@@ -54,10 +60,10 @@ and open the template in the editor.
                                     <h4 class="modal-title">Add New Employee</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form>
 
+                                    <form method="POST">
                                         <fieldset>
-                                            <legend style="text-align: center"><span class="glyphicon glyphicon-user"></span></legend>
+                                            <legend style="text-align: center"><span class="glyphicon glyphicon-info-sign"></span></legend>
                                             <label for="fn">First Name</label>
                                             <input type="text" class="form-control" placeholder="Joanne" name="fname" id="fn">
                                             <br>
@@ -87,11 +93,23 @@ and open the template in the editor.
                                             <input type="password" class="form-control" name="pass" id="p">
                                             <br>
                                         </fieldset>
-                                        
-                                        <!-- add input type hidden / java line for getting the date when the employee was added -->
-                                        <!-- ADD FIELDSET FOR EMPLOYEE POSITION?? -->
-
+                                        <br>
+                                        <fieldset>
+                                            <legend style="text-align: center"><span class="glyphicon glyphicon-user"></span></legend>
+                                            <label for="pos">Employee Position</label>
+                                            <input type="text" class="form-control" placeholder="Secretary" name="pos" id="pos">
+                                            <br>
+                                            <label for="wH">Employee Working Hours</label>
+                                            <p style="padding-left: 10px"><input type="radio" name="workingHours" value="4" id="wH"> 4</p> 
+                                            <p style="padding-left: 10px"><input type="radio" name="workingHours" value="8" id="wH"> 8</p>
+                                            <p style="padding-left: 10px"><input type="radio" name="workingHours" value="12" id="wH"> 12</p> 
+                                            <br>
+                                            <label for="wH">Employee Shift</label>
+                                            <p style="padding-left: 10px"><input type="radio" name="workingShift" value="AM" id="wS"> AM</p> 
+                                            <p style="padding-left: 10px"><input type="radio" name="workingShift" value="PM" id="wS"> PM</p>
+                                        </fieldset>
                                     </form>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-default" data-dismiss="modal">Add Employee</button>
@@ -100,7 +118,7 @@ and open the template in the editor.
 
                         </div>
                     </div>
-                    
+
                     <!-- UPDATE EMPLOYEE -->
                     <div class="modal fade" id="updateEmployee" role="dialog">
                         <div class="modal-dialog">
@@ -112,10 +130,41 @@ and open the template in the editor.
                                     <h4 class="modal-title">Update Employee</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form>
 
+                                    <center>
+                                        <form method="POST">
+                                            <label for="id">Select Employee ID</label>
+                                            <select class="form-control" style="width: 100px" name="id">
+                                                <option>1</option> <!-- ID NUMBERS -->
+                                            </select>
+                                        </form>
+                                    </center>
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#toUpdateEmployeeDetails"><!--data-dismiss="modal"-->Next</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- UPDATE EMPLOYEE INFO-->
+                    <div class="modal fade" id="toUpdateEmployeeDetails" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Update Employee</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    <form method="POST">
                                         <fieldset>
-                                            <legend style="text-align: center"><span class="glyphicon glyphicon-user"></span></legend>
+                                            <legend style="text-align: center"><span class="glyphicon glyphicon-info-sign"></span></legend>
                                             <label for="fn">First Name</label>
                                             <input type="text" class="form-control" placeholder="Joanne" name="fname" id="fn">
                                             <br>
@@ -131,6 +180,10 @@ and open the template in the editor.
                                             <label for="g">Gender</label>
                                             <p style="padding-left: 10px"><input type="radio" name="gender" value="Male" id="g"> Male</p> 
                                             <p style="padding-left: 10px"><input type="radio" name="gender" value="Female" if="g"> Female</p>
+                                            <br>
+                                            <label for="pos">Employee Position</label>
+                                            <input type="text" class="form-control" placeholder="Secretary" name="pos" id="pos">
+                                            <br>
                                         </fieldset>
                                         <br>
                                         <fieldset>
@@ -145,10 +198,22 @@ and open the template in the editor.
                                             <input type="password" class="form-control" name="pass" id="p">
                                             <br>
                                         </fieldset>
-                                        
-                                        <!-- ADD FIELDSET FOR EMPLOYEE POSITION?? -->
-
+                                        <fieldset>
+                                            <legend style="text-align: center"><span class="glyphicon glyphicon-user"></span></legend>
+                                            <label for="pos">Employee Position</label>
+                                            <input type="text" class="form-control" placeholder="Secretary" name="pos" id="pos">
+                                            <br>
+                                            <label for="wH">Employee Working Hours</label>
+                                            <p style="padding-left: 10px"><input type="radio" name="workingHours" value="4" id="wH"> 4</p> 
+                                            <p style="padding-left: 10px"><input type="radio" name="workingHours" value="8" id="wH"> 8</p>
+                                            <p style="padding-left: 10px"><input type="radio" name="workingHours" value="12" id="wH"> 12</p> 
+                                            <br>
+                                            <label for="wH">Employee Shift</label>
+                                            <p style="padding-left: 10px"><input type="radio" name="workingShift" value="AM" id="wS"> AM</p> 
+                                            <p style="padding-left: 10px"><input type="radio" name="workingShift" value="PM" id="wS"> PM</p>
+                                        </fieldset>
                                     </form>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-default" data-dismiss="modal">Update Employee</button>
@@ -156,8 +221,8 @@ and open the template in the editor.
                             </div>
 
                         </div>
-                    </div>
-                    
+                    </div>                   
+
                     <!-- DELETE EMPLOYEE -->
                     <div class="modal fade" id="deleteEmployee" role="dialog">
                         <div class="modal-dialog">
@@ -168,18 +233,21 @@ and open the template in the editor.
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     <h4 class="modal-title">Delete Employee</h4>
                                 </div>
-                                <div class="modal-body">
-                                    <form>
+                                <div class="modal-body"> 
+                                    <form method="POST">
                                         <center>
-                                            <label for="id">Employee ID</label>
-                                            <input type="text" style="width: 30%" class="form-control" placeholder="0" name="fname" id="id">
+                                            <label for="id">Select Employee ID</label>
+                                            <select class="form-control" style="width: 100px" name="id">
+                                                <option>1</option> <!-- ID NUMBERS -->
+                                            </select>
                                             <!-- make java function to remove other characters except for numbers -->
                                         </center>
-                                    </form>
+
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-default" data-dismiss="modal">Delete Employee</button>
+                                    <button type="submit" class="btn btn-default delEmp" data-dismiss="modal">Delete Employee</button>
                                     <!-- onclick alert are you sure you want to delete 0 ? -->
+                                    </form>
                                 </div>
                             </div>
 
@@ -195,6 +263,7 @@ and open the template in the editor.
                             <th>Last Name</th>
                             <th>Position</th>
                             <th>Salary</th>
+                            <th style="width: 200px"></th>
                             </thead>
                             <tbody style="overflow: auto">
                                 <tr>
@@ -204,6 +273,7 @@ and open the template in the editor.
                                     <td id="emp_ln">Regudo</td>
                                     <td id="emp_pos">Chef</td>
                                     <td id="emp_sal">999,999</td>
+                                    <td style="width: 200px"><button type="submit" class="btn btn-info" data-toggle="modal" data-target="#toUpdateEmployeeDetails">Update</button>   <button class="btn btn-danger delEmp">Delete</button></td>
                                 </tr>
 
                             </tbody>
@@ -215,3 +285,14 @@ and open the template in the editor.
 
     </body>
 </html>
+
+
+<script>
+    $(document).ready(function () {
+        $(".delEmp").click(function () {
+            alert("Are you sure?");
+        });
+
+
+    });
+</script>
