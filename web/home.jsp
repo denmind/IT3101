@@ -4,8 +4,17 @@
     Author     : Carah
 --%>
 
+<%@page import="java.util.LinkedList"%>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="models.*"%>
+<%
+    OurDataBase DB = new OurDataBase("unwind");
+    DB.initConnection();
+
+    LinkedList<Employee> list = DB.getEmployeeIDs();
+
+%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,7 +27,7 @@
     </head>
     <body>
 
-        <% Employee EMP = new Employee(); %>
+        <% Employee EMP = new Employee();%>
         <div class="row" align="center">
             <div class="col-md-12">
                 <nav class="navbar navbar-inverse" style="color: #d9534f ; border-radius: 0px ">
@@ -67,7 +76,7 @@
                                 </div>
                                 <div class="modal-body">
 
-                                    <form method="POST">
+                                    <form method="POST" action="servlet_add">
                                         <fieldset>
                                             <legend style="text-align: center"><span class="glyphicon glyphicon-info-sign"></span></legend>
                                             <label for="fn">First Name</label>
@@ -138,10 +147,15 @@
                                 <div class="modal-body">
 
                                     <center>
-                                        <form method="POST">
+                                        <form method="POST" action="servlet_select_id">
                                             <label for="id">Select Employee ID</label>
-                                            <select class="form-control" style="width: 100px" name="id">
-                                                <option>1</option> <!-- ID NUMBERS -->
+                                            <select class="form-control" style="width: 300px" name="id">
+                                                <!-- ID NUMBERS -->
+                                                <%
+                                                    for (Employee E : list) {
+                                                        out.println("<option>[" + E.getEmployee_id() + "] " + E.getFullName() + "</option>");
+                                                    }
+                                                %> 
                                             </select>
                                         </form>
                                     </center>
@@ -168,7 +182,7 @@
                                 </div>
                                 <div class="modal-body">
 
-                                    <form method="POST">
+                                    <form method="POST" action="servlet_update">
                                         <fieldset>
                                             <legend style="text-align: center"><span class="glyphicon glyphicon-info-sign"></span></legend>
                                             <label for="fn">First Name</label>
@@ -240,11 +254,16 @@
                                     <h4 class="modal-title">Delete Employee</h4>
                                 </div>
                                 <div class="modal-body"> 
-                                    <form method="POST">
+                                    <form method="POST" action="servlet_select_id">
                                         <center>
                                             <label for="id">Select Employee ID</label>
-                                            <select class="form-control" style="width: 100px" name="id">
-                                                <option>1</option> <!-- ID NUMBERS -->
+                                            <select class="form-control" style="width: 300px" name="id">
+                                                <!-- ID NUMBERS -->
+                                                <%
+                                                    for (Employee E : list) {
+                                                        out.println("<option>[" + E.getEmployee_id() + "] " + E.getFullName() + "</option>");
+                                                    }
+                                                %>
                                             </select>
                                             <!-- make java function to remove other characters except for numbers -->
                                         </center>

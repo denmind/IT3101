@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -79,7 +80,7 @@ public class OurDataBase {
         LinkedList<EmployeeModifications> list = new LinkedList();
 
         String query = "SELECT m.*, e.* FROM modifications m  JOIN salary s ON s.sal_id = m.mod_id JOIN unwind.employee e ON s.employee_id = e.employee_id";
-        
+
         Connection con = this.getDb_con();
         PreparedStatement ps = con.prepareStatement(query);
 
@@ -99,25 +100,63 @@ public class OurDataBase {
             EM.getEmp().setMiddle_initial(rs.getString("middle_initial").charAt(0));
             EM.getEmp().setLast_name(rs.getString("last_name"));
             EM.getEmp().setPosition(rs.getString("position"));
-            
+
             list.add(EM);
         }
 
         return list;
     }
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        OurDataBase DB = new OurDataBase("unwind_sms");
-        DB.initConnection();
+    public LinkedList<String> getPositions() throws SQLException {
+        LinkedList<String> list = new LinkedList();
 
-        Employee E = new Employee();
+        String query = "SELECT position FROM employee GROUP BY position";
 
-        LinkedList<EmployeeModifications> list = DB.getSalaryModifications();
-        
-        
-        for(EmployeeModifications EM : list){
-            System.out.println(EM.getModif().getSchedule());
+        Connection con = this.getDb_con();
+        PreparedStatement ps = con.prepareStatement(query);
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            list.add(rs.getString("position"));
         }
 
+        return list;
+    }
+
+    public LinkedList<Employee> getEmployeeIDs() throws SQLException {
+        LinkedList<Employee> list = new LinkedList();
+
+        String query = "SELECT employee_id,first_name,middle_initial,last_name FROM employee ORDER BY employee_id ASC";
+
+        Connection con = this.getDb_con();
+        PreparedStatement ps = con.prepareStatement(query);
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Employee Em = new Employee();
+
+            Em.setEmployee_id(rs.getInt("employee_id"));
+            Em.setFirst_name(rs.getString("first_name"));
+            Em.setMiddle_initial(rs.getString("middle_initial").charAt(0));
+            Em.setLast_name(rs.getString("last_name"));
+
+            list.add(Em);
+        }
+
+        return list;
+    }
+
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        OurDataBase DB = new OurDataBase("unwind");
+        DB.initConnection();
+
+        LinkedList<Employee> list = DB.getEmployeeIDs();
+        
+        for(Employee E : list){
+            System.out.println(E.getEmployee_id());
+            System.out.println(E.getFullName());
+        }
     }
 }

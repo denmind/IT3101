@@ -3,9 +3,16 @@
     Created on : 07 11, 18, 4:46:11 PM
     Author     : Carah
 --%>
-
+<%@page import="models.*"%>
+<%@page import="java.util.LinkedList"%>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    OurDataBase DB = new OurDataBase("unwind");
+    DB.initConnection();
+
+    LinkedList<String> list = DB.getPositions();
+%>
 <html>
     <head>
         <title>Adjust Wages</title>
@@ -42,9 +49,11 @@
                 <div class="row">
                     <div class="col-md-8" style="overflow: auto">
                         <div class="list-group"><!-- MODAL! EMPLOYEE POSITIONS--> <!-- CLICKING MODIFIES entireThing-->
-                            <a href="#" class="list-group-item" name="Housekeeping">Housekeeping</a>
-                            <a href="#" class="list-group-item" name="Concierge">Concierge</a>
-                            <a href="#" class="list-group-item" name="Chef">Chef</a>
+                            <%
+                                for (String pos : list) {
+                                    out.println("<a href='#' class='list-group-item' name='" + pos + "'>" + pos + "</a>");
+                                }
+                            %>
                         </div>
                     </div>
                 </div>
@@ -66,12 +75,12 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Base Salary</h4>
+                                        <h4 class="modal-title">New Salary</h4>
                                     </div>
                                     <div class="modal-body">
                                         <form action="POST">
                                             <center>
-                                                <label for="newSal">Enter new BASE SALARY / HOUR </label>
+                                                <label for="newSal">Enter new SALARY AMOUNT for <% %> </label>
                                                 <input type="number" style="width: 30%" class="form-control" placeholder="0" name="fname" id="newSal">
                                                 <!-- make java function to remove other characters except for numbers -->
                                             </center>
@@ -130,7 +139,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <h4>Salary Bonus</h4>
-                                    
+
                                     <form method="POST">
                                         <label for="addAmount" style="padding-right: 10px">Amount</label>
                                         <input type="number" class="form-control" id="addAmount" name="addAmount" style="width: 30%; display: inline-block">
@@ -140,14 +149,14 @@
                                         <br><br>
                                         <button type="button" class="btn btn-success">Add to Salary</button>
                                     </form>
-                                    
+
                                 </div>
                             </div>
                             <hr>
                             <div class="row">
                                 <div class="col-md-12">
                                     <h4>Salary Deduction</h4>
-                                    
+
                                     <form method="POST">
                                         <label for="deductAmount" style="padding-right: 10px">Amount</label>
                                         <input type="number" class="form-control" id="deductAmount" name="deductAmount" style="width: 30%; display: inline-block">
@@ -164,7 +173,7 @@
                                 <h4>Total Salary for this Month</h4>
                                 <h2>3000.00</h2><!-- THIS SALARY WILL BE SAVED TO THE DATABASE -->
                             </div>
-                      
+
                         </div>
                     </div>
 
