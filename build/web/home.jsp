@@ -5,6 +5,7 @@
 --%>
 
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="models.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,14 +17,18 @@
         <script src="Bootstrap/js/bootstrap.min.js"></script>
     </head>
     <body>
+
+        <% Employee EMP = new Employee(); %>
         <div class="row" align="center">
             <div class="col-md-12">
                 <nav class="navbar navbar-inverse" style="color: #d9534f ; border-radius: 0px ">
                     <div class="navbar-header" >
                         <a class="navbar-brand" href="home.jsp" style="">Salary Management System</a>
                     </div>
-
-                    <p class="navbar-text navbar-right" style="margin-right: 10px">Welcome back, <a href="#" class="navbar-link" style="padding-right: 50px">Mark Otto</a><a href="#" class="navbar-link"><span class="glyphicon glyphicon-log-out"></span></a></p>
+                    <p class="navbar-text navbar-right" style="margin-right: 10px">Welcome back, 
+                        <a href="#" class="navbar-link" style="padding-right: 50px">User</a>
+                        <a href="index.jsp" class="navbar-link"><span class="glyphicon glyphicon-log-out"></span></a>
+                    </p>
                 </nav>        
             </div>
 
@@ -45,10 +50,11 @@
                             <a href="#" class="list-group-item" data-toggle="modal" data-target="#updateEmployee">Update Employee</a>
                             <a href="#" class="list-group-item" data-toggle="modal" data-target="#deleteEmployee">Delete Employee</a>
                         </div>
+
+
                     </div>
 
-                    <!--- MODALS! --->
-
+                    <!--- MODALS! -->
                     <!-- ADD NEW EMPLOYEE -->
                     <div class="modal fade" id="addEmployee" role="dialog">
                         <div class="modal-dialog">
@@ -273,7 +279,7 @@
                                     <td id="emp_ln">Regudo</td>
                                     <td id="emp_pos">Chef</td>
                                     <td id="emp_sal">999,999</td>
-                                    <td style="width: 200px"><button type="submit" class="btn btn-info" data-toggle="modal" data-target="#toUpdateEmployeeDetails">Update</button>   <button class="btn btn-danger delEmp">Delete</button></td>
+                                    <!--                                    <td style="width: 200px"><button type="submit" class="btn btn-info" data-toggle="modal" data-target="#toUpdateEmployeeDetails">Update</button>   <button class="btn btn-danger delEmp">Delete</button></td>-->
                                 </tr>
 
                             </tbody>

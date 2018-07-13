@@ -21,6 +21,7 @@ public class Employee {
 //    NO IMAGE NO PROBLEM
 //    Use NULL for idsto auto_increment for SQL Insert
 //    When using empty constructor make sure to set it afterwards else pseudo data is used
+    private int employee_id;
     private String position;
     private String first_name;
     private String last_name;
@@ -35,7 +36,8 @@ public class Employee {
 
     public Employee() {
         this.salary = null;
-
+        this.employee_id = 0;
+        
         this.date_account_created = java.time.LocalDateTime.now();
 
         this.birthdate = "example";
@@ -49,10 +51,12 @@ public class Employee {
         this.contact_no = "example";
     }
 
-    public Employee(String position, String first_name, String last_name, char middle_initial, String email, String password, String birthdate, String gender, String contact_no, double working_hours, String working_shift) {
+
+    public Employee(int employee_id ,String position, String first_name, String last_name, char middle_initial, String email, String password, String birthdate, String gender, String contact_no, double working_hours, String working_shift) {
         this.date_account_created = java.time.LocalDateTime.now();
         this.salary = null;
-
+        
+        this.employee_id = employee_id;
         this.position = position;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -62,6 +66,14 @@ public class Employee {
         this.birthdate = birthdate;
         this.gender = gender;
         this.contact_no = contact_no;
+    }
+
+    public int getEmployee_id() {
+        return employee_id;
+    }
+
+    public void setEmployee_id(int employee_id) {
+        this.employee_id = employee_id;
     }
 
     public String getPosition() {

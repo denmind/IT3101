@@ -12,26 +12,67 @@ import java.time.LocalDateTime;
  * @author pc-user
  */
 public class Modifications {
-    private double value;
+    private int id;
+    private int salary_id;
+    
+    private double amount;
+    private String type;
     private String description;
     private LocalDateTime schedule;
 
     public Modifications() {
-    }
-
-    public Modifications(double value, String description) {
-        this.value = value;
-        this.description = description;
+        this.id = 0;
+        this.salary_id = 0;
+        this.amount = 0;
+        this.type = "ADDITION";
+        this.description = "example";
         this.schedule = java.time.LocalDateTime.now();
     }
 
-    public double getValue() {
-        return value;
+    public Modifications(double amount, String type, String description, LocalDateTime schedule) {
+        this.id = 0;
+        this.salary_id = 0;
+        
+        this.amount = amount;
+        this.type = type;
+        this.description = description;
+        this.schedule = schedule;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+   
+
+    public int getId() {
+        return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getSalary_id() {
+        return salary_id;
+    }
+
+    public void setSalary_id(int salary_id) {
+        this.salary_id = salary_id;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 
     public String getDescription() {
         return description;
