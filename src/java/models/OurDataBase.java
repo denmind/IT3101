@@ -50,7 +50,7 @@ public class OurDataBase {
     }
 
     public Employee employeeExists(Employee E) throws SQLException {
-        Connection con = this.db_con;
+        Connection con = this.getDb_con();
         String query = "SELECT * FROM `employee` WHERE email = ? && password = ?";
         PreparedStatement ps = con.prepareStatement(query);
 
@@ -58,9 +58,6 @@ public class OurDataBase {
         ps.setString(2, E.getPassword());
 
         ResultSet rs = ps.executeQuery();
-
-        System.out.println(E.getEmail());
-        System.out.println(E.getPassword());
 
         rs.next();
 
@@ -78,8 +75,33 @@ public class OurDataBase {
         return E;
     }
 
-    public LinkedList<Employee> getSalaryModifications() {
-        LinkedList<Employee> list = new LinkedList();
+    public LinkedList<EmployeeModifications> getSalaryModifications() throws SQLException {
+        LinkedList<EmployeeModifications> list = new LinkedList();
+
+        String query = "SELECT m.*, e.* FROM modifications m  JOIN salary s ON s.sal_id = m.mod_id JOIN unwind.employee e ON s.employee_id = e.employee_id";
+        
+        Connection con = this.getDb_con();
+        PreparedStatement ps = con.prepareStatement(query);
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            EmployeeModifications EM = new EmployeeModifications();
+
+            EM.getModif().setId(rs.getInt("mod_id"));
+            EM.getModif().setDescription(rs.getString("description"));
+            EM.getModif().setAmount(rs.getDouble("amount"));
+            EM.getModif().setUpdatedSalary(rs.getDouble("salary"));
+            EM.getModif().setSchedule(rs.getString("datetime"));
+
+            EM.getEmp().setEmployee_id(rs.getInt("employee_id"));
+            EM.getEmp().setFirst_name(rs.getString("first_name"));
+            EM.getEmp().setMiddle_initial(rs.getString("middle_initial").charAt(0));
+            EM.getEmp().setLast_name(rs.getString("last_name"));
+            EM.getEmp().setPosition(rs.getString("position"));
+            
+            list.add(EM);
+        }
 
         return list;
     }
@@ -87,6 +109,15 @@ public class OurDataBase {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         OurDataBase DB = new OurDataBase("unwind_sms");
         DB.initConnection();
+
+        Employee E = new Employee();
+
+        LinkedList<EmployeeModifications> list = DB.getSalaryModifications();
+        
+        
+        for(EmployeeModifications EM : list){
+            System.out.println(EM.getModif().getSchedule());
+        }
 
     }
 }

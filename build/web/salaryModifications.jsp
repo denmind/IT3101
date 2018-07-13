@@ -4,13 +4,16 @@
     Author     : Carah
 --%>
 
-<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="models.*"%>
+<%@page import="java.util.LinkedList"%>
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 
-<% 
+<%
     OurDataBase DB = new OurDataBase("unwind_sms");
-    
-    
+
+    DB.initConnection();
+
+    LinkedList<EmployeeModifications> modifs_list = DB.getSalaryModifications();
 %>
 <!DOCTYPE html>
 <html>
@@ -42,31 +45,38 @@
         <div class="row">
             <div class="col-md-12" style="padding-left: 5%; padding-right: 5%">
                 <!--WITH PAGINATION I GUESS HAHAHA-->
+                <% if (modifs_list.isEmpty()) { %>
+
+                <% } else { %>
                 <table class="table">
                     <thead>
-                        <th>Modification ID</th>
-                        <th>Employee ID</th>
-                        <th>Employee Name</th> <!-- CONCAT FULL NAME -->
-                        <th>Employee Position</th>
-                        <th>Description</th>
-                        <th>Amount</th>
-                        <th>Updated Salary</th>
-                        <th>Date & Time Modified</th> 
+                    <th>Modification ID</th>
+                    <th>Employee ID</th>
+                    <th>Employee Name</th> <!-- CONCAT FULL NAME -->
+                    <th>Employee Position</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Updated Salary</th>
+                    <th>Date & Time Modified</th> 
                     </thead>
                     <tbody style="overflow: auto">
-                        <tr>
-                            <td>1</td>
-                            <td>3</td>
-                            <td>Regudo, Carah Justine A</td>
-                            <td>Chef</td>
-                            <td>Deduction : Late Fine</td>
-                            <td>3000</td>
-                            <td>45000</td>
-                            <td>12-07-2018 10:30:20 AM</td>
-                            
-                        </tr>
+                        <%
+                            for (EmployeeModifications EM : modifs_list) {
+                                out.println("<tr>");
+                                out.println("<td>" + EM.getModif().getId() + "</td>");
+                                out.println("<td>" + EM.getEmp().getEmployee_id()+ "</td>");
+                                out.println("<td>" + EM.getEmp().getFullName() + "</td>");
+                                out.println("<td>" + EM.getEmp().getPosition() + "</td>");
+                                out.println("<td>" + EM.getModif().getDescription()+ "</td>");
+                                out.println("<td>" + EM.getModif().getAmount() + "</td>");
+                                out.println("<td>" + EM.getModif().getUpdatedSalary()+ "</td>");
+                                out.println("<td>" + EM.getModif().getSchedule()+ "</td>");
+                                out.println("</tr>");
+                            }
+                        %>
                     </tbody>
                 </table>  
+                <% }%>
             </div>
         </div>
 
