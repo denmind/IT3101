@@ -14,6 +14,9 @@
     DB.initConnection();
 
     LinkedList<EmployeeModifications> modifs_list = DB.getSalaryModifications();
+    Employee globalEmployee = (Employee) session.getAttribute("employee");
+    session.setAttribute("employee", globalEmployee);
+    
 %>
 <!DOCTYPE html>
 <html>
@@ -32,7 +35,7 @@
                     <div class="navbar-header" >
                         <a class="navbar-brand" href="home.jsp" style="">Salary Management System</a>
                     </div>
-                    <p class="navbar-text navbar-right" style="margin-right: 10px">Welcome back, <a href="#" class="navbar-link" style="padding-right: 50px">Mark Otto</a><a href="#" class="navbar-link"><span class="glyphicon glyphicon-log-out"></span></a></p>
+                    <p class="navbar-text navbar-right" style="margin-right: 10px">Welcome back, <a href="#" class="navbar-link" style="padding-right: 50px"><% out.println(globalEmployee.getFullName()); %></a><a href="#" class="navbar-link"><span class="glyphicon glyphicon-log-out"></span></a></p>
                 </nav>        
             </div>
 
@@ -64,13 +67,13 @@
                             for (EmployeeModifications EM : modifs_list) {
                                 out.println("<tr>");
                                 out.println("<td>" + EM.getModif().getId() + "</td>");
-                                out.println("<td>" + EM.getEmp().getEmployee_id()+ "</td>");
+                                out.println("<td>" + EM.getEmp().getEmployee_id() + "</td>");
                                 out.println("<td>" + EM.getEmp().getFullName() + "</td>");
                                 out.println("<td>" + EM.getEmp().getPosition() + "</td>");
-                                out.println("<td>" + EM.getModif().getDescription()+ "</td>");
+                                out.println("<td>" + EM.getModif().getDescription() + "</td>");
                                 out.println("<td>" + EM.getModif().getAmount() + "</td>");
-                                out.println("<td>" + EM.getModif().getUpdatedSalary()+ "</td>");
-                                out.println("<td>" + EM.getModif().getSchedule()+ "</td>");
+                                out.println("<td>" + EM.getModif().getUpdatedSalary() + "</td>");
+                                out.println("<td>" + EM.getModif().getSchedule() + "</td>");
                                 out.println("</tr>");
                             }
                         %>

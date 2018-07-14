@@ -4,6 +4,7 @@
     Author     : Carah
 --%>
 
+<%@page import="java.sql.SQLException"%>
 <%@page import="java.util.LinkedList"%>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="models.*"%>
@@ -26,16 +27,26 @@
         <script src="Bootstrap/js/bootstrap.min.js"></script>
     </head>
     <body>
+        <%            Employee globalEmployee = new Employee();
+            try {
+                OurDataBase db = new OurDataBase("unwind");
+                globalEmployee = db.getUserCredentials(request);
 
-        <% Employee EMP = new Employee();%>
+                session = request.getSession();
+                session.setAttribute("employee", globalEmployee);
+            } catch (Exception E) {
+                response.sendRedirect("redirect_home.jsp");
+            }
+        %>
         <div class="row" align="center">
+
             <div class="col-md-12">
                 <nav class="navbar navbar-inverse" style="color: #d9534f ; border-radius: 0px ">
                     <div class="navbar-header" >
                         <a class="navbar-brand" href="home.jsp" style="">Salary Management System</a>
                     </div>
                     <p class="navbar-text navbar-right" style="margin-right: 10px">Welcome back, 
-                        <a href="#" class="navbar-link" style="padding-right: 50px">User</a>
+                        <a href="#" class="navbar-link" style="padding-right: 50px"><% out.println(globalEmployee.getFullName()); %></a>
                         <a href="index.jsp" class="navbar-link"><span class="glyphicon glyphicon-log-out"></span></a>
                     </p>
                 </nav>        
@@ -151,8 +162,7 @@
                                             <label for="id">Select Employee ID</label>
                                             <select class="form-control" style="width: 300px" name="id">
                                                 <!-- ID NUMBERS -->
-                                                <%
-                                                    for (Employee E : list) {
+                                                <%                                                    for (Employee E : list) {
                                                         out.println("<option>[" + E.getEmployee_id() + "] " + E.getFullName() + "</option>");
                                                     }
                                                 %> 

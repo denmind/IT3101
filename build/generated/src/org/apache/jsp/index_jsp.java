@@ -43,7 +43,6 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
 
       out.write("\n");
       out.write("\n");
-      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<!--\n");
       out.write("To change this license header, choose License Headers in Project Properties.\n");
@@ -72,7 +71,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <div class=\"col-md-4\"></div>\n");
       out.write("            <div class=\"col-md-4\">\n");
       out.write("                <div class=\"form-group\" id=\"login\" >\n");
-      out.write("                    <form action=\"servlet_login\" method=\"post\" autocomplete=\"off\">\n");
+      out.write("                    <form action=\"home.jsp\" method=\"post\" autocomplete=\"off\">\n");
       out.write("                        <center><input type=\"text\" name=\"email\" class=\"form-control\" id=\"em\" style=\"width: 350px\" placeholder=\"Email Address\"></center>\n");
       out.write("                        <br>\n");
       out.write("                        <center><input type=\"password\" name=\"password\" class=\"form-control\" id=\"pw\" style=\"width: 350px\" placeholder=\"Password\"></center>\n");

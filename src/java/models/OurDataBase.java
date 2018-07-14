@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -148,13 +149,25 @@ public class OurDataBase {
         return list;
     }
 
+    public Employee getUserCredentials(HttpServletRequest request) throws SQLException, ClassNotFoundException {
+        Employee e = new Employee();
+        OurDataBase db = this;
+
+        this.initConnection();
+        e.setEmail(request.getParameter("email"));
+        e.setPassword(request.getParameter("password"));
+        e = db.employeeExists(e);
+
+        return e;
+    }
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         OurDataBase DB = new OurDataBase("unwind");
         DB.initConnection();
 
         LinkedList<Employee> list = DB.getEmployeeIDs();
-        
-        for(Employee E : list){
+
+        for (Employee E : list) {
             System.out.println(E.getEmployee_id());
             System.out.println(E.getFullName());
         }

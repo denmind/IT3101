@@ -32,7 +32,7 @@ and open the template in the editor.
             <div class="col-md-4"></div>
             <div class="col-md-4">
                 <div class="form-group" id="login" >
-                    <form action="servlet_login" method="post" autocomplete="off">
+                    <form action="home.jsp" method="post" autocomplete="off">
                         <center><input type="text" name="email" class="form-control" id="em" style="width: 350px" placeholder="Email Address"></center>
                         <br>
                         <center><input type="password" name="password" class="form-control" id="pw" style="width: 350px" placeholder="Password"></center>
