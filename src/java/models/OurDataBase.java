@@ -10,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.servlet.http.HttpServletRequest;
 
@@ -161,15 +160,42 @@ public class OurDataBase {
         return e;
     }
 
+    public LinkedList<Employee> getAllEmployees() throws SQLException {
+        LinkedList<Employee> list = new LinkedList();
+
+        String query = "SELECT e.*,s.amount FROM employee e JOIN unwind_sms.salary s ON s.employee_id = e.employee_id ORDER BY e.employee_id ASC ";
+
+        Connection con = this.getDb_con();
+        PreparedStatement ps = con.prepareStatement(query);
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Employee E = new Employee();
+
+            E.setEmployee_id(rs.getInt("employee_id"));
+            E.setFirst_name(rs.getString("first_name"));
+            E.setLast_name(rs.getString("last_name"));
+            E.setMiddle_initial(rs.getString("middle_initial").charAt(0));
+            E.setPosition(rs.getString("position"));
+            E.setSalary(rs.getDouble("amount"));
+
+            list.add(E);
+        }
+
+        return list;
+    }
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         OurDataBase DB = new OurDataBase("unwind");
         DB.initConnection();
 
-        LinkedList<Employee> list = DB.getEmployeeIDs();
+        LinkedList<Employee> list = DB.getAllEmployees();
 
         for (Employee E : list) {
             System.out.println(E.getEmployee_id());
             System.out.println(E.getFullName());
+            System.out.println(E.getSalary());
         }
     }
 }

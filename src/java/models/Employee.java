@@ -32,10 +32,10 @@ public class Employee {
     private String gender;
     private String contact_no;
     private LocalDateTime date_account_created;
-    private Salary salary;
+    private double salary;
 
     public Employee() {
-        this.salary = null;
+        this.salary = 0.0;
         this.employee_id = 0;
 
         this.date_account_created = java.time.LocalDateTime.now();
@@ -53,7 +53,7 @@ public class Employee {
 
     public Employee(int employee_id, String position, String first_name, String last_name, char middle_initial, String email, String password, String birthdate, String gender, String contact_no, double working_hours, String working_shift) {
         this.date_account_created = java.time.LocalDateTime.now();
-        this.salary = null;
+        this.salary = 0.0;
 
         this.employee_id = employee_id;
         this.position = position;
@@ -155,11 +155,11 @@ public class Employee {
         this.date_account_created = date_account_created;
     }
 
-    public Salary getSalary() {
+    public double getSalary() {
         return salary;
     }
 
-    public void setSalary(Salary salary) {
+    public void setSalary(double salary) {
         this.salary = salary;
     }
 

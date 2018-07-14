@@ -13,7 +13,7 @@
     DB.initConnection();
 
     LinkedList<Employee> list = DB.getEmployeeIDs();
-
+    
 %>
 
 <!DOCTYPE html>
@@ -28,10 +28,12 @@
     </head>
     <body>
         <%            Employee globalEmployee = new Employee();
+
+            OurDataBase db = new OurDataBase("unwind");
+            db.initConnection();
             if (session.getAttribute("employee") == null) {
                 try {
-                    OurDataBase db = new OurDataBase("unwind");
-                    globalEmployee = db.getUserCredentials(request);
+                    globalEmployee = DB.getUserCredentials(request);
 
                     session = request.getSession();
                     session.setAttribute("employee", globalEmployee);
@@ -42,6 +44,8 @@
                 globalEmployee = (Employee) session.getAttribute("employee");
                 session.setAttribute("employee", globalEmployee);
             }
+
+            LinkedList<Employee> empList = db.getAllEmployees();
         %>
         <div class="row" align="center">
 
@@ -92,7 +96,7 @@
                                 </div>
                                 <div class="modal-body">
 
-                                    <form method="POST" action="servlet_add">
+                                    <form method="POST" action="/servlet_add">
                                         <fieldset>
                                             <legend style="text-align: center"><span class="glyphicon glyphicon-info-sign"></span></legend>
                                             <label for="fn">First Name</label>
@@ -125,6 +129,7 @@
                                             <br>
                                         </fieldset>
                                         <br>
+                                        <!--Removed working hours/shift in employee table since modification of table is not allowed
                                         <fieldset>
                                             <legend style="text-align: center"><span class="glyphicon glyphicon-user"></span></legend>
                                             <label for="pos">Employee Position</label>
@@ -138,7 +143,7 @@
                                             <label for="wH">Employee Shift</label>
                                             <p style="padding-left: 10px"><input type="radio" name="workingShift" value="AM" id="wS"> AM</p> 
                                             <p style="padding-left: 10px"><input type="radio" name="workingShift" value="PM" id="wS"> PM</p>
-                                        </fieldset>
+                                        </fieldset>-->
                                     </form>
 
                                 </div>
@@ -233,6 +238,7 @@
                                             <input type="password" class="form-control" name="pass" id="p">
                                             <br>
                                         </fieldset>
+                                        <!--Removed working hours/shift in employee table since modification of table is not allowed
                                         <fieldset>
                                             <legend style="text-align: center"><span class="glyphicon glyphicon-user"></span></legend>
                                             <label for="pos">Employee Position</label>
@@ -246,7 +252,7 @@
                                             <label for="wH">Employee Shift</label>
                                             <p style="padding-left: 10px"><input type="radio" name="workingShift" value="AM" id="wS"> AM</p> 
                                             <p style="padding-left: 10px"><input type="radio" name="workingShift" value="PM" id="wS"> PM</p>
-                                        </fieldset>
+                                        </fieldset>-->
                                     </form>
 
                                 </div>
@@ -306,15 +312,20 @@
                             <th style="width: 200px"></th>
                             </thead>
                             <tbody style="overflow: auto">
-                                <tr>
-                                    <td id="emp_id">1</td>
-                                    <td id="emp_fn">Carah</td>
-                                    <td id="emp_mi">A</td>
-                                    <td id="emp_ln">Regudo</td>
-                                    <td id="emp_pos">Chef</td>
-                                    <td id="emp_sal">999,999</td>
-                                    <!--                                    <td style="width: 200px"><button type="submit" class="btn btn-info" data-toggle="modal" data-target="#toUpdateEmployeeDetails">Update</button>   <button class="btn btn-danger delEmp">Delete</button></td>-->
-                                </tr>
+                                
+                                    <% for (Employee empIter : empList) {
+                                        out.println("<tr>");
+                                            out.println("<td id='emp_id'>"+empIter.getEmployee_id()+"</td>");
+                                            out.println("<td id='emp_fn'>"+empIter.getFirst_name()+"</td>");
+                                            out.println("<td id='emp_mi'>"+empIter.getMiddle_initial()+"</td>");
+                                            out.println("<td id='emp_ln'>"+empIter.getLast_name()+"</td>");
+                                            out.println("<td id='emp_pos'>"+empIter.getPosition()+"</td>");
+                                            out.println("<td id='emp_sal'>"+empIter.getSalary()+"</td>");
+                                            out.println("<td style='width: 200px'><button type='submit' class='btn btn-info' data-toggle='modal' data-target='#toUpdateEmployeeDetails'>Update</button>   <button class='btn btn-danger delEmp'>Delete</button></td>");
+                                            out.println("</tr>");
+                                    }
+
+                                    %>
 
                             </tbody>
                         </table>

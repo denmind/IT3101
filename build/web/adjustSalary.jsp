@@ -12,7 +12,9 @@
     DB.initConnection();
 
     LinkedList<String> list = DB.getPositions();
-    Employee globalEmployee = (Employee)session.getAttribute("employee");
+    LinkedList<Employee> empList = DB.getAllEmployees();
+
+    Employee globalEmployee = (Employee) session.getAttribute("employee");
     session.setAttribute("employee", globalEmployee);
 %>
 <html>
@@ -110,15 +112,19 @@
                         <th></th>
                         </thead>
                         <tbody style="overflow: auto">
-                            <tr>
-                                <td id="emp_id">1</td>
-                                <td id="emp_fn">Carah</td>
-                                <td id="emp_mi">A</td>
-                                <td id="emp_ln">Regudo</td>
-                                <td id="emp_pos">Chef</td>
-                                <td id="emp_sal">999, 999</td>
-                                <td id="edit"  width="150px"><button class="btn btn-default btn-sm btn-info" data-toggle="modal" data-target="#editSalary">Edit Salary</button></td>
-                            </tr>
+                            <% for (Employee empIter : empList) {
+                                    out.println("<tr>");
+                                    out.println("<td id='emp_id'>" + empIter.getEmployee_id() + "</td>");
+                                    out.println("<td id='emp_fn'>" + empIter.getFirst_name() + "</td>");
+                                    out.println("<td id='emp_mi'>" + empIter.getMiddle_initial() + "</td>");
+                                    out.println("<td id='emp_ln'>" + empIter.getLast_name() + "</td>");
+                                    out.println("<td id='emp_pos'>" + empIter.getPosition() + "</td>");
+                                    out.println("<td id='emp_sal'>" + empIter.getSalary() + "</td>");
+                                    out.println("<td id='edit'  width='150px'><button class='btn btn-default btn-sm btn-info' data-toggle='modal' data-target='#editSalary'>Edit Salary</button></td>");
+                                    out.println("</tr>");
+                                }
+
+                            %>
 
                         </tbody>
                     </table>
