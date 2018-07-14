@@ -28,14 +28,19 @@
     </head>
     <body>
         <%            Employee globalEmployee = new Employee();
-            try {
-                OurDataBase db = new OurDataBase("unwind");
-                globalEmployee = db.getUserCredentials(request);
+            if (session.getAttribute("employee") == null) {
+                try {
+                    OurDataBase db = new OurDataBase("unwind");
+                    globalEmployee = db.getUserCredentials(request);
 
-                session = request.getSession();
+                    session = request.getSession();
+                    session.setAttribute("employee", globalEmployee);
+                } catch (Exception E) {
+                    response.sendRedirect("redirect_home.jsp");
+                }
+            } else {
+                globalEmployee = (Employee) session.getAttribute("employee");
                 session.setAttribute("employee", globalEmployee);
-            } catch (Exception E) {
-                response.sendRedirect("redirect_home.jsp");
             }
         %>
         <div class="row" align="center">
