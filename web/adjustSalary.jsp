@@ -3,6 +3,7 @@
     Created on : 07 11, 18, 4:46:11 PM
     Author     : Carah
 --%>
+<%@page import="servlets.*"%>
 <%@page import="models.*"%>
 <%@page import="java.util.LinkedList"%>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,6 +17,14 @@
 
     Employee globalEmployee = (Employee) session.getAttribute("employee");
     session.setAttribute("employee", globalEmployee);
+
+    LinkedList<Integer> idList = new LinkedList();
+
+    for (Employee empIter : empList) {
+        idList.add(empIter.getEmployee_id());
+    }
+
+
 %>
 <html>
     <head>
@@ -84,7 +93,12 @@
                                     <div class="modal-body">
                                         <form action="POST">
                                             <center>
-                                                <label for="newSal">Enter new SALARY AMOUNT for <% %> </label>
+                                                <label for="newSal">Enter new SALARY AMOUNT for <%
+                                                    for (int i : idList) {
+                                                        out.println("<h4>" + i + " </h4>");
+                                                    }
+
+                                                    %> </label>
                                                 <input type="number" style="width: 30%" class="form-control" placeholder="0" name="fname" id="newSal">
                                                 <!-- make java function to remove other characters except for numbers -->
                                             </center>
@@ -122,9 +136,12 @@
                                     out.println("<td id='emp_sal'>" + empIter.getSalary() + "</td>");
                                     out.println("<td id='edit'  width='150px'><button class='btn btn-default btn-sm btn-info' data-toggle='modal' data-target='#editSalary'>Edit Salary</button></td>");
                                     out.println("</tr>");
-                                }
+
+                                    idList.add(empIter.getEmployee_id());
 
                             %>
+
+
 
                         </tbody>
                     </table>
@@ -140,7 +157,8 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Edit Salary for Mark Otto <!-- REPLACE MARK OTTO WITH EMPLOYEE NAME --></h4>
+                            <h4 class="modal-title">Edit Salary for <%=empIter.getFullName()%></h4>
+                            
                         </div>
                         <div class="modal-body">         
 
@@ -148,8 +166,10 @@
                                 <div class="col-md-12">
                                     <h4>Salary Bonus</h4>
 
-                                    <form method="POST">
+                                    <form method="POST" action="${pageContext.request.contextPath}/servlet_edit_salary">
                                         <label for="addAmount" style="padding-right: 10px">Amount</label>
+                                        <input type="hidden" name="type" value="ADDITION">
+                                        <input type="hidden" name="employee_id" value="<%=empIter.getEmployee_id()%>">
                                         <input type="number" class="form-control" id="addAmount" name="addAmount" style="width: 30%; display: inline-block">
                                         <br><br>
                                         <label for="deductReason" style="padding-right: 10px"> Reason </label>
@@ -165,7 +185,9 @@
                                 <div class="col-md-12">
                                     <h4>Salary Deduction</h4>
 
-                                    <form method="POST">
+                                    <form method="POST" action="${pageContext.request.contextPath}/servlet_edit_salary">
+                                        <input type="hidden" name="type" value="DEDUCTION">
+                                        <input type="hidden" name="employee_id" value="<%=empIter.getEmployee_id()%>">
                                         <label for="deductAmount" style="padding-right: 10px">Amount</label>
                                         <input type="number" class="form-control" id="deductAmount" name="deductAmount" style="width: 30%; display: inline-block">
                                         <br><br>
@@ -177,6 +199,9 @@
                                 </div>
                             </div>
                             <hr>
+                                        <%
+                                }
+                            %>
                             <div class="row" style="padding-left: 20px">
                                 <h4>Total Salary for this Month</h4>
                                 <h2>3000.00</h2><!-- THIS SALARY WILL BE SAVED TO THE DATABASE -->

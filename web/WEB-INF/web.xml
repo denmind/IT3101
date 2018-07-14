@@ -4,13 +4,24 @@
         <servlet-name>servlet_add</servlet-name>
         <servlet-class>servlets.servlet_add</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>servlet_edit_salary</servlet-name>
+        <servlet-class>servlets.servlet_edit_salary</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>servlet_add</servlet-name>
         <url-pattern>/servlet_add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servlet_edit_salary</servlet-name>
+        <url-pattern>/servlet_edit_salary</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>
