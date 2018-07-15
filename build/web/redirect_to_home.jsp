@@ -1,6 +1,6 @@
 <%-- 
-    Document   : home_redirect
-    Created on : 07 13, 18, 10:39:26 AM
+    Document   : redirect_to_home
+    Created on : 07 15, 18, 2:05:32 PM
     Author     : pc-user
 --%>
 
@@ -10,10 +10,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="Refresh" content="2;url=index.jsp">
-        <title>Login Error</title>
+        <title>Employee CUD Error</title>
     </head>
     <body>
-        <h2>Invalid username/password</h2>
-        <h4>Redirecting to login in...</h4>
+        <h2>Database Error!</h2>
+        <h4>Redirecting to homepage...</h4>
     </body>
 </html>

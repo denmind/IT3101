@@ -20,7 +20,13 @@ public class servlet_add extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        response.sendRedirect("salaryModifications.jsp");
+        String first_name = "";
+        try{
+            
+            
+            
+        }catch(Exception E){
+            response.sendRedirect("redirect_to_home.jsp");
+        }
     }
 }

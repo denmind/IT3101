@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2018 at 07:33 PM
+-- Generation Time: Jul 15, 2018 at 09:15 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -73,7 +73,8 @@ INSERT INTO `employee` (`employee_id`, `position`, `first_name`, `last_name`, `m
 (2, 'Janitor', 'Dave', 'Concepcion', 'L', 'dave@gmail.com', '123', '1997-10-20', 'Male', '09111111111', '2017-11-08 09:55:23', 0x687474703a2f2f6c6f63616c686f73742f556e77696e642f696e636c756465732f696d672f656d706c6f7965654d2e706e67),
 (3, 'Conceirge', 'Reg', 'User', 'U', 'reguser@gmail.com', '123', '1990-12-25', 'Female', '9111234567', '2017-12-26 04:25:02', 0x687474703a2f2f6c6f63616c686f73742f556e77696e642f696e636c756465732f696d672f656d706c6f7965654d2e706e67),
 (10, 'Janitor', 'Mary', 'Lamb', 'J', 'marylamb@yahoo.com', '123', '1985-12-13', 'Female', '9097654321', '2017-12-26 19:24:18', 0x687474703a2f2f6c6f63616c686f73742f556e77696e642f696e636c756465732f696d672f656d706c6f796565462e706e67),
-(11, 'Tester', 'Test', 'Test', 'T', 'Test@Test.com', 'Test', '2001-01-01', 'Male', 'Test', '0000-00-00 00:00:00', '');
+(11, 'Tester', 'Test', 'Test', 'T', 'Test@Test.com', 'Test', '2001-01-01', 'Male', 'Test', '0000-00-00 00:00:00', ''),
+(12, 'Sales', 'Taylor', 'Ashley', 'M', 'tashley@aol.com', 'tashley@aol.com', '2018-07-01', 'Female', '(602) 495-7603', '2018-07-15 14:16:54', '');
 
 -- --------------------------------------------------------
 
@@ -583,7 +584,7 @@ ALTER TABLE `check_in`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `feedback`
 --

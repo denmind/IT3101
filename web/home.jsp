@@ -13,7 +13,9 @@
     DB.initConnection();
 
     LinkedList<Employee> list = DB.getEmployeeIDs();
-    
+
+    LinkedList<Employee> empList = DB.getAllEmployees();
+
 %>
 
 <!DOCTYPE html>
@@ -45,7 +47,6 @@
                 session.setAttribute("employee", globalEmployee);
             }
 
-            LinkedList<Employee> empList = db.getAllEmployees();
         %>
         <div class="row" align="center">
 
@@ -96,7 +97,7 @@
                                 </div>
                                 <div class="modal-body">
 
-                                    <form method="POST" action="/servlet_add">
+                                    <form method="POST" action="${pageContext.request.contextPath}/servlet_add">
                                         <fieldset>
                                             <legend style="text-align: center"><span class="glyphicon glyphicon-info-sign"></span></legend>
                                             <label for="fn">First Name</label>
@@ -168,7 +169,7 @@
                                 <div class="modal-body">
 
                                     <center>
-                                        <form method="POST" action="servlet_select_id">
+                                        <form method="POST" action="${pageContext.request.contextPath}/servlet_select_id">
                                             <label for="id">Select Employee ID</label>
                                             <select class="form-control" style="width: 300px" name="id">
                                                 <!-- ID NUMBERS -->
@@ -202,7 +203,7 @@
                                 </div>
                                 <div class="modal-body">
 
-                                    <form method="POST" action="servlet_update">
+                                    <form method="POST" action="${pageContext.request.contextPath}/servlet_update">
                                         <fieldset>
                                             <legend style="text-align: center"><span class="glyphicon glyphicon-info-sign"></span></legend>
                                             <label for="fn">First Name</label>
@@ -275,7 +276,7 @@
                                     <h4 class="modal-title">Delete Employee</h4>
                                 </div>
                                 <div class="modal-body"> 
-                                    <form method="POST" action="servlet_select_id">
+                                    <form method="POST" action="${pageContext.request.contextPath}/servlet_select_id">
                                         <center>
                                             <label for="id">Select Employee ID</label>
                                             <select class="form-control" style="width: 300px" name="id">
@@ -312,20 +313,20 @@
                             <th style="width: 200px"></th>
                             </thead>
                             <tbody style="overflow: auto">
-                                
-                                    <% for (Employee empIter : empList) {
+
+                                <% for (Employee empIter : empList) {
                                         out.println("<tr>");
-                                            out.println("<td id='emp_id'>"+empIter.getEmployee_id()+"</td>");
-                                            out.println("<td id='emp_fn'>"+empIter.getFirst_name()+"</td>");
-                                            out.println("<td id='emp_mi'>"+empIter.getMiddle_initial()+"</td>");
-                                            out.println("<td id='emp_ln'>"+empIter.getLast_name()+"</td>");
-                                            out.println("<td id='emp_pos'>"+empIter.getPosition()+"</td>");
-                                            out.println("<td id='emp_sal'>"+empIter.getSalary()+"</td>");
-                                            out.println("<td style='width: 200px'><button type='submit' class='btn btn-info' data-toggle='modal' data-target='#toUpdateEmployeeDetails'>Update</button>   <button class='btn btn-danger delEmp'>Delete</button></td>");
-                                            out.println("</tr>");
+                                        out.println("<td id='emp_id'>" + empIter.getEmployee_id() + "</td>");
+                                        out.println("<td id='emp_fn'>" + empIter.getFirst_name() + "</td>");
+                                        out.println("<td id='emp_mi'>" + empIter.getMiddle_initial() + "</td>");
+                                        out.println("<td id='emp_ln'>" + empIter.getLast_name() + "</td>");
+                                        out.println("<td id='emp_pos'>" + empIter.getPosition() + "</td>");
+                                        out.println("<td id='emp_sal'>" + empIter.getSalary() + "</td>");
+                                        out.println("<td style='width: 200px'><button type='submit' class='btn btn-info' data-toggle='modal' data-target='#toUpdateEmployeeDetails'>Update</button>   <button class='btn btn-danger delEmp'>Delete</button></td>");
+                                        out.println("</tr>");
                                     }
 
-                                    %>
+                                %>
 
                             </tbody>
                         </table>

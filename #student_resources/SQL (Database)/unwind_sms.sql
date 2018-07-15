@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2018 at 07:33 PM
+-- Generation Time: Jul 15, 2018 at 09:15 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -62,7 +62,12 @@ CREATE TABLE `salary` (
 --
 
 INSERT INTO `salary` (`sal_id`, `employee_id`, `amount`) VALUES
-(1, 1, 3000);
+(1, 1, 5000),
+(2, 2, 500),
+(3, 3, 700),
+(4, 10, 900),
+(5, 12, 650),
+(6, 11, 100);
 
 --
 -- Indexes for dumped tables
@@ -95,7 +100,7 @@ ALTER TABLE `modifications`
 -- AUTO_INCREMENT for table `salary`
 --
 ALTER TABLE `salary`
-  MODIFY `sal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `sal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- Constraints for dumped tables
 --

@@ -35,7 +35,7 @@
                     <div class="navbar-header" >
                         <a class="navbar-brand" href="home.jsp" style="">Salary Management System</a>
                     </div>
-                    <p class="navbar-text navbar-right" style="margin-right: 10px">Welcome back, <a href="#" class="navbar-link" style="padding-right: 50px"><% out.println(globalEmployee.getFullName()); %></a><a href="#" class="navbar-link"><span class="glyphicon glyphicon-log-out"></span></a></p>
+                    <p class="navbar-text navbar-right" style="margin-right: 10px">Welcome back, <a href="#" class="navbar-link" style="padding-right: 50px"><% out.println(globalEmployee.getFullName()); %></a><a href="index.jsp" class="navbar-link"><span class="glyphicon glyphicon-log-out"></span></a></p>
                 </nav>        
             </div>
 

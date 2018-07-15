@@ -19,6 +19,7 @@
     session.setAttribute("employee", globalEmployee);
 
     LinkedList<Integer> idList = new LinkedList();
+    LinkedList<Employee> newEmpList = empList;
 
     for (Employee empIter : empList) {
         idList.add(empIter.getEmployee_id());
@@ -42,7 +43,8 @@
                     <div class="navbar-header" >
                         <a class="navbar-brand" href="home.jsp" style="">Salary Management System</a>
                     </div>
-                    <p class="navbar-text navbar-right" style="margin-right: 10px">Welcome back, <a href="#" class="navbar-link" style="padding-right: 50px"><% out.println(globalEmployee.getFullName()); %></a><a href="#" class="navbar-link"><span class="glyphicon glyphicon-log-out"></span></a></p>
+                    <p class="navbar-text navbar-right" style="margin-right: 10px">Welcome back, <a href="#" class="navbar-link" style="padding-right: 50px"><% out.println(globalEmployee.getFullName()); %></a>
+                        <a href="index.jsp" class="navbar-link"><span class="glyphicon glyphicon-log-out"></span></a></p>
                 </nav>        
             </div>
 
@@ -134,11 +136,13 @@
                                     out.println("<td id='emp_ln'>" + empIter.getLast_name() + "</td>");
                                     out.println("<td id='emp_pos'>" + empIter.getPosition() + "</td>");
                                     out.println("<td id='emp_sal'>" + empIter.getSalary() + "</td>");
-                                    out.println("<td id='edit'  width='150px'><button class='btn btn-default btn-sm btn-info' data-toggle='modal' data-target='#editSalary'>Edit Salary</button></td>");
-                                    out.println("</tr>");
+                           %>
+                        <td id='edit'  width='150px'><button class='btn btn-default btn-sm btn-info' data-toggle='modal' data-target="#editSalary<%= empIter.getEmployee_id() %>">Edit Salary</button></td>
+                        <%    
+                        out.println("</tr>");
 
                                     idList.add(empIter.getEmployee_id());
-
+                                }
                             %>
 
 
@@ -148,17 +152,17 @@
                 </div>
 
             </div>
-
+            <% for (Employee e : newEmpList) { %>
             <!-- PERSONALIZED SALARY MODAL -->
-            <div class="modal fade" id="editSalary" role="dialog">
+            <div class="modal fade" id="editSalary<%= e.getEmployee_id() %>" role="dialog">
                 <div class="modal-dialog">
 
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Edit Salary for <%=empIter.getFullName()%></h4>
-                            
+                            <h4 class="modal-title">Edit Salary for <%=e.getFullName()%></h4>
+
                         </div>
                         <div class="modal-body">         
 
@@ -169,13 +173,13 @@
                                     <form method="POST" action="${pageContext.request.contextPath}/servlet_edit_salary">
                                         <label for="addAmount" style="padding-right: 10px">Amount</label>
                                         <input type="hidden" name="type" value="ADDITION">
-                                        <input type="hidden" name="employee_id" value="<%=empIter.getEmployee_id()%>">
+                                        <input type="hidden" name="employee_id" value="<%=e.getEmployee_id()%>">
                                         <input type="number" class="form-control" id="addAmount" name="addAmount" style="width: 30%; display: inline-block">
                                         <br><br>
                                         <label for="deductReason" style="padding-right: 10px"> Reason </label>
                                         <input type="text" id="addReason" class="form-control" placeholder="Reason for Adding" style="width: 80%; display: inline-block">
                                         <br><br>
-                                        <button type="button" class="btn btn-success">Add to Salary</button>
+                                        <input type="submit" class="btn btn-success" value="Add to Salary">
                                     </form>
 
                                 </div>
@@ -187,32 +191,32 @@
 
                                     <form method="POST" action="${pageContext.request.contextPath}/servlet_edit_salary">
                                         <input type="hidden" name="type" value="DEDUCTION">
-                                        <input type="hidden" name="employee_id" value="<%=empIter.getEmployee_id()%>">
+                                        <input type="hidden" name="employee_id" value="<%=e.getEmployee_id()%>">
                                         <label for="deductAmount" style="padding-right: 10px">Amount</label>
                                         <input type="number" class="form-control" id="deductAmount" name="deductAmount" style="width: 30%; display: inline-block">
                                         <br><br>
                                         <label for="deductReason" style="padding-right: 10px"> Reason </label>
                                         <input type="text" id="deductReason" class="form-control" placeholder="Reason for Deduction" style="width: 80%; display: inline-block">
                                         <br><br>
-                                        <button type="button" class="btn btn-danger">Deduct from Salary</button>
+                                        <input type="submit" class="btn btn-danger" value="Add to Salary">
                                     </form>
                                 </div>
                             </div>
                             <hr>
-                                        <%
-                                }
-                            %>
+                           
                             <div class="row" style="padding-left: 20px">
                                 <h4>Total Salary for this Month</h4>
-                                <h2>3000.00</h2><!-- THIS SALARY WILL BE SAVED TO THE DATABASE -->
+                                <h2><%= e.getSalary() %></h2><!-- THIS SALARY WILL BE SAVED TO THE DATABASE -->
                             </div>
-
                         </div>
                     </div>
 
                 </div>
             </div>
 
+ <%
+                                }
+                            %>
         </div>
 
     </body>

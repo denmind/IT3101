@@ -186,16 +186,40 @@ public class OurDataBase {
         return list;
     }
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        OurDataBase DB = new OurDataBase("unwind");
-        DB.initConnection();
+    public double getSalary(int employee_id) throws SQLException {
+        Connection con = this.getDb_con();
+        double salary = 0.0;
+        String query = "SELECT amount FROM salary WHERE employee_id = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, employee_id);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        rs.next();
+        
+        salary = rs.getDouble("amount");
 
-        LinkedList<Employee> list = DB.getAllEmployees();
-
-        for (Employee E : list) {
-            System.out.println(E.getEmployee_id());
-            System.out.println(E.getFullName());
-            System.out.println(E.getSalary());
-        }
+        return salary;
     }
+    
+    public void changeEmployeeSalary(int employee_id, double salary) throws SQLException{
+        Connection con = this.getDb_con();
+        String query = "UPDATE `salary` SET `amount` = ? WHERE `salary`.`sal_id` = ?;";
+        PreparedStatement ps = con.prepareStatement(query);
+        
+        ps.setDouble(1, salary);
+        ps.setInt(2, employee_id);
+        
+        ps.executeUpdate();
+        
+    }
+//<editor-fold defaultstate="collapsed" desc="Test methods here">
+    
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        OurDataBase DB = new OurDataBase("unwind_sms");
+        DB.initConnection();
+        
+        DB.changeEmployeeSalary(1, 233);
+    }
+//</editor-fold>
 }
