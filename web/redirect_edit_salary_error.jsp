@@ -9,10 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta http-equiv="Refresh" content="2;url=adjustSalary.jsp">
-        <title>Database Error</title>
+        <meta http-equiv="Refresh" content="1;url=adjustSalary.jsp">
+        <title>Error</title>
     </head>
-    <body>
-        <h2>Database Error</h2>
-    </body>
 </html>

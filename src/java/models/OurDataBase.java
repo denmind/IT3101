@@ -79,7 +79,7 @@ public class OurDataBase {
     public LinkedList<EmployeeModifications> getSalaryModifications() throws SQLException {
         LinkedList<EmployeeModifications> list = new LinkedList();
 
-        String query = "SELECT m.*, e.* FROM modifications m  JOIN salary s ON s.sal_id = m.mod_id JOIN unwind.employee e ON s.employee_id = e.employee_id";
+        String query = "SELECT m.*, e.* FROM modifications m  JOIN salary s ON s.sal_id = m.salary_id JOIN unwind.employee e ON s.employee_id = e.employee_id ORDER BY m.mod_id DESC";
 
         Connection con = this.getDb_con();
         PreparedStatement ps = con.prepareStatement(query);
@@ -186,39 +186,81 @@ public class OurDataBase {
         return list;
     }
 
+    public LinkedList<Employee> getAllEmployeesBasedOnPosition(String selectedPosition) throws SQLException {
+        LinkedList<Employee> list = new LinkedList();
+
+        String query = "SELECT e.*,s.amount FROM employee e JOIN unwind_sms.salary s ON s.employee_id = e.employee_id WHERE e.position = '" + selectedPosition + "' ORDER BY e.employee_id ASC ";
+
+        Connection con = this.getDb_con();
+        PreparedStatement ps = con.prepareStatement(query);
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Employee E = new Employee();
+
+            E.setEmployee_id(rs.getInt("employee_id"));
+            E.setFirst_name(rs.getString("first_name"));
+            E.setLast_name(rs.getString("last_name"));
+            E.setMiddle_initial(rs.getString("middle_initial").charAt(0));
+            E.setPosition(rs.getString("position"));
+            E.setSalary(rs.getDouble("amount"));
+
+            list.add(E);
+        }
+
+        return list;
+    }
+
     public double getSalary(int employee_id) throws SQLException {
         Connection con = this.getDb_con();
         double salary = 0.0;
         String query = "SELECT amount FROM salary WHERE employee_id = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, employee_id);
-        
+
         ResultSet rs = ps.executeQuery();
-        
+
         rs.next();
-        
+
         salary = rs.getDouble("amount");
 
         return salary;
     }
-    
-    public void changeEmployeeSalary(int employee_id, double salary) throws SQLException{
+
+    public void changeEmployeeSalary(int employee_id, double salary) throws SQLException {
         Connection con = this.getDb_con();
         String query = "UPDATE `salary` SET `amount` = ? WHERE `salary`.`sal_id` = ?;";
         PreparedStatement ps = con.prepareStatement(query);
-        
+
         ps.setDouble(1, salary);
         ps.setInt(2, employee_id);
+
+        ps.executeUpdate();
+
+    }
+
+    public void addEmployeeModification(int salary_id, double amount, double salary, String description, String type, String datetime) throws SQLException {
+        Connection con = this.getDb_con();
+        String query = "INSERT INTO `modifications` (`salary_id`, `amount`, `salary`, `description`, `type`, `datetime`) VALUES (?, ?, ?, ?, ?, ?) ";
+        PreparedStatement ps = con.prepareStatement(query);
+
+        ps.setInt(1, salary_id);
+        ps.setDouble(2, amount);
+        ps.setDouble(3, salary);
+        ps.setString(4, description);
+        ps.setString(5, type);
+        ps.setString(6, datetime);
         
         ps.executeUpdate();
-        
+
     }
+
 //<editor-fold defaultstate="collapsed" desc="Test methods here">
-    
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         OurDataBase DB = new OurDataBase("unwind_sms");
         DB.initConnection();
-        
+
         DB.changeEmployeeSalary(1, 233);
     }
 //</editor-fold>

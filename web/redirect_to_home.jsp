@@ -9,11 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta http-equiv="Refresh" content="2;url=index.jsp">
-        <title>Employee CUD Error</title>
+        <meta http-equiv="Refresh" content="1;url=index.jsp">
+        <title>Error</title>
     </head>
-    <body>
-        <h2>Database Error!</h2>
-        <h4>Redirecting to homepage...</h4>
-    </body>
 </html>

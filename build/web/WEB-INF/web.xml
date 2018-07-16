@@ -8,6 +8,10 @@
         <servlet-name>servlet_edit_salary</servlet-name>
         <servlet-class>servlets.servlet_edit_salary</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>servlet_edit_base_salary</servlet-name>
+        <servlet-class>servlets.servlet_edit_base_salary</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>servlet_add</servlet-name>
         <url-pattern>/servlet_add</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>servlet_edit_salary</servlet-name>
         <url-pattern>/servlet_edit_salary</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servlet_edit_base_salary</servlet-name>
+        <url-pattern>/servlet_edit_base_salary</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

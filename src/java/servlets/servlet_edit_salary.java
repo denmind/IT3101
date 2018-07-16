@@ -8,8 +8,6 @@ package servlets;
 import models.*;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,22 +23,30 @@ public class servlet_edit_salary extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         OurDataBase db = new OurDataBase("unwind_sms");
+        
         double employeeSalary = 0.0;
         double newEmployeeSalary = 0.0;
         double modif_amount = 0.0;
         int employeeId = 0;
         String modif_type = "";
+        String description = "";
+
+        java.util.Date dt = new java.util.Date();
+        java.text.SimpleDateFormat dateTime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        
+        String currentTime = dateTime.format(dt);
+
         try {
             db.initConnection();
 
-            
-            
             modif_type = request.getParameter("type");
 
             employeeId = Integer.parseInt(request.getParameter("employee_id"));
             employeeSalary = db.getSalary(employeeId);
 
-            modif_amount = Double.parseDouble(request.getParameter("deductAmount"));
+            description = request.getParameter("Description");
+
+            modif_amount = Double.parseDouble(request.getParameter("amount"));
 
             switch (modif_type) {
                 case "ADDITION":
@@ -52,8 +58,11 @@ public class servlet_edit_salary extends HttpServlet {
             }
 
             db.changeEmployeeSalary(employeeId, newEmployeeSalary);
+//            System.out.println(employeeId + ", " + modif_amount + ", " + newEmployeeSalary + ", " + description + ", " + modif_type + ", " + currentTime);
+            db.addEmployeeModification(employeeId, modif_amount, newEmployeeSalary, description, modif_type, currentTime);
+            response.sendRedirect("adjustSalary.jsp");
 
-        } catch (ClassNotFoundException | SQLException | NumberFormatException ex) {
+        } catch (ClassNotFoundException | SQLException | NumberFormatException ex ) {
             response.sendRedirect("redirect_edit_salary_error.jsp");
         }
 

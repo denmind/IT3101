@@ -25,6 +25,7 @@
         idList.add(empIter.getEmployee_id());
     }
 
+    String posi = "Viewing All";
 
 %>
 <html>
@@ -66,23 +67,41 @@
                         <div class="list-group"><!-- MODAL! EMPLOYEE POSITIONS--> <!-- CLICKING MODIFIES entireThing-->
                             <%
                                 for (String pos : list) {
-                                    out.println("<a href='#' class='list-group-item' name='" + pos + "'>" + pos + "</a>");
+                                    out.println("<form method='post'><input type='submit' class='btn btn-default' name='selectedPosition'value='" + pos + "' style='width: 200px; text-align: left; margin-bottom: 3px;'></form>");
                                 }
                             %>
                         </div>
                     </div>
                 </div>
-
             </div>
+
+            <%
+                if (request.getParameter("selectedPosition") != null) {
+
+                    posi = request.getParameter("selectedPosition");
+
+                    empList = DB.getAllEmployeesBasedOnPosition(posi);
+
+                    while (!idList.isEmpty()) {
+                        idList.removeFirst();
+                    }
+
+                    for (Employee empIter : empList) {
+                        idList.add(empIter.getEmployee_id());
+                    }
+
+                }
+            %>
+
             <div class="col-md-9">
                 <div class="row">
                     <div class="col-md-10" id="entireThing">
-                        <h4>Position: </h4><h4><!--Insert Employee Position--></h4>
+                        <h4>Position: <%=posi%></h4><h4></h4>
                     </div>
                     <div class="col-md-2">
                         <button class="btn btn-default" data-toggle="modal" data-target="#baseSalary">Adjust Base Salary</button>
 
-                        <!-- BASE SALARY MODAL -->
+                        <!-- BASE SALfiARY MODAL -->
                         <div class="modal fade" id="baseSalary" role="dialog">
                             <div class="modal-dialog">
 
@@ -90,25 +109,25 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">New Salary</h4>
+                                        <h4 class="modal-title">New Base Salary</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="POST">
+                                        <!-- HELP HERE PO. KANANG ANG LINK DLI MA FOUND DAW.  -->
+                                        <form method="POST" action="${pageContext.request.contextPath}/servlet_edit_base_salary">
                                             <center>
-                                                <label for="newSal">Enter new SALARY AMOUNT for <%
+                                                <label for="newSal">Enter new Base Salary for:<br> <%
                                                     for (int i : idList) {
-                                                        out.println("<h4>" + i + " </h4>");
+                                                        out.println("<input type='hidden' name='idList' value='" + i + "'><span>" + i + " </span>");
                                                     }
 
-                                                    %> </label>
-                                                <input type="number" style="width: 30%" class="form-control" placeholder="0" name="fname" id="newSal">
-                                                <!-- make java function to remove other characters except for numbers -->
+                                                    %>
+                                                </label>
+                                                <input type="number" style="width: 30%" class="form-control" placeholder="0" name="newBaseSalary" id="newSal">
+                                                <br>
+
+                                                <button type="submit" class="btn btn-default">Save</button>
                                             </center>
                                         </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-default" data-dismiss="modal">Save</button>
-                                        <!-- onclick alert are you sure you want to delete 0 ? -->
                                     </div>
                                 </div>
 
@@ -117,7 +136,7 @@
                     </div>
                 </div>
                 <div class="row" style="height: 500px">
-                    <table class="table">
+                    <table class="table" id="empTable">
                         <thead>
                         <th>ID</th>
                         <th>First Name</th>
@@ -136,14 +155,14 @@
                                     out.println("<td id='emp_ln'>" + empIter.getLast_name() + "</td>");
                                     out.println("<td id='emp_pos'>" + empIter.getPosition() + "</td>");
                                     out.println("<td id='emp_sal'>" + empIter.getSalary() + "</td>");
-                           %>
-                        <td id='edit'  width='150px'><button class='btn btn-default btn-sm btn-info' data-toggle='modal' data-target="#editSalary<%= empIter.getEmployee_id() %>">Edit Salary</button></td>
-                        <%    
-                        out.println("</tr>");
-
-                                    idList.add(empIter.getEmployee_id());
-                                }
                             %>
+                        <td id='edit'  width='150px'><button class='btn btn-default btn-sm btn-info' data-toggle='modal' data-target="#editSalary<%= empIter.getEmployee_id()%>">Edit Salary</button></td>
+                        <%
+                                out.println("</tr>");
+
+                                idList.add(empIter.getEmployee_id());
+                            }
+                        %>
 
 
 
@@ -152,9 +171,9 @@
                 </div>
 
             </div>
-            <% for (Employee e : newEmpList) { %>
+            <% for (Employee e : newEmpList) {%>
             <!-- PERSONALIZED SALARY MODAL -->
-            <div class="modal fade" id="editSalary<%= e.getEmployee_id() %>" role="dialog">
+            <div class="modal fade" id="editSalary<%= e.getEmployee_id()%>" role="dialog">
                 <div class="modal-dialog">
 
                     <!-- Modal content-->
@@ -174,10 +193,10 @@
                                         <label for="addAmount" style="padding-right: 10px">Amount</label>
                                         <input type="hidden" name="type" value="ADDITION">
                                         <input type="hidden" name="employee_id" value="<%=e.getEmployee_id()%>">
-                                        <input type="number" class="form-control" id="addAmount" name="addAmount" style="width: 30%; display: inline-block">
+                                        <input type="number" class="form-control" id="addAmount" name="amount" value="0.0" style="width: 30%; display: inline-block">
                                         <br><br>
-                                        <label for="deductReason" style="padding-right: 10px"> Reason </label>
-                                        <input type="text" id="addReason" class="form-control" placeholder="Reason for Adding" style="width: 80%; display: inline-block">
+                                        <label for="addReason" style="padding-right: 10px"> Reason </label>
+                                        <input type="text" name="Description" id="addReason" value="Bonus" class="form-control" placeholder="Reason for Adding" style="width: 80%; display: inline-block">
                                         <br><br>
                                         <input type="submit" class="btn btn-success" value="Add to Salary">
                                     </form>
@@ -193,20 +212,20 @@
                                         <input type="hidden" name="type" value="DEDUCTION">
                                         <input type="hidden" name="employee_id" value="<%=e.getEmployee_id()%>">
                                         <label for="deductAmount" style="padding-right: 10px">Amount</label>
-                                        <input type="number" class="form-control" id="deductAmount" name="deductAmount" style="width: 30%; display: inline-block">
+                                        <input type="number" class="form-control" id="deductAmount" name="amount" value="0.0" style="width: 30%; display: inline-block">
                                         <br><br>
                                         <label for="deductReason" style="padding-right: 10px"> Reason </label>
-                                        <input type="text" id="deductReason" class="form-control" placeholder="Reason for Deduction" style="width: 80%; display: inline-block">
+                                        <input type="text" name="Description" id="deductReason" value="Fine" class="form-control" placeholder="Reason for Deduction" style="width: 80%; display: inline-block">
                                         <br><br>
-                                        <input type="submit" class="btn btn-danger" value="Add to Salary">
+                                        <input type="submit" class="btn btn-danger" value="Deduct from Salary">
                                     </form>
                                 </div>
                             </div>
                             <hr>
-                           
+
                             <div class="row" style="padding-left: 20px">
                                 <h4>Total Salary for this Month</h4>
-                                <h2><%= e.getSalary() %></h2><!-- THIS SALARY WILL BE SAVED TO THE DATABASE -->
+                                <h2><%= e.getSalary()%></h2><!-- THIS SALARY WILL BE SAVED TO THE DATABASE -->
                             </div>
                         </div>
                     </div>
@@ -214,11 +233,10 @@
                 </div>
             </div>
 
- <%
-                                }
-                            %>
+            <%
+                }
+            %>
         </div>
 
     </body>
 </html>
-
