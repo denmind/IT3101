@@ -11,11 +11,6 @@
             <file>file:/C:/Users/Carah/Documents/NetBeansProjects/SalaryManagementSystem/web/index.html</file>
             <file>file:/C:/Users/Carah/Documents/NetBeansProjects/SalaryManagementSystem/web/home.html</file>
         </group>
-        <group name="Transition Semester Importan">
-            <file>file:/C:/Users/pc-user/Documents/NetBeansProjects/SalaryManagementSystem/src/java/servlets/servlet_edit_salary.java</file>
-            <file>file:/C:/Users/pc-user/Documents/NetBeansProjects/SalaryManagementSystem/src/java/models/OurDataBase.java</file>
-            <file>file:/C:/Users/pc-user/Documents/NetBeansProjects/SalaryManagementSystem/web/salaryModifications.jsp</file>
-            <file>file:/C:/Users/pc-user/Documents/NetBeansProjects/SalaryManagementSystem/web/adjustSalary.jsp</file>
-        </group>
+        <group name="Transition Semester Importan"/>
     </open-files>
 </project-private>

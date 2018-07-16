@@ -35,26 +35,23 @@ public class servlet_edit_base_salary extends HttpServlet {
             db.initConnection();
 
             String[] idStr = request.getParameterValues("idList");
-            
+
             employeeSalary = Double.parseDouble(request.getParameter("newBaseSalary"));
 
-            int length = idStr.length;
-            
-            while(length > -1){
-                System.out.println(idStr[length]);
-                idList.add(Integer.parseInt(idStr[length]));
-                length--;
+            for (int len = 0; len < idStr.length; len++) {
+                idList.add(Integer.parseInt(idStr[len]));
             }
-            
+
+            System.out.println(idStr.length);
             System.out.println(employeeSalary);
 
-            for(int x : idList){
-               db.changeEmployeeSalary(x, employeeSalary); //UNCOMMENT IF FOUND NA ANG PAGE, AND SAKTO ANG DISPLAY FOR ids and new base salary
+            for (int x : idList) {
+                db.changeEmployeeSalary(x, employeeSalary);
             }
-
             response.sendRedirect("adjustSalary.jsp");
 
         } catch (ClassNotFoundException | SQLException | NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException ex) {
+            System.out.println(ex);
             response.sendRedirect("redirect_edit_salary_error.jsp");
         }
 
