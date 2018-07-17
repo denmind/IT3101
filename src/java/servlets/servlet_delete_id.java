@@ -14,13 +14,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Employee;
 import models.OurDataBase;
 
 /**
  *
  * @author pc-user
  */
-public class servlet_add extends HttpServlet {
+public class servlet_delete_id extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -30,26 +31,15 @@ public class servlet_add extends HttpServlet {
         OurDataBase DB = new OurDataBase("unwind");
 
         try {
-            String position = request.getParameter("pos");
-            String fname = request.getParameter("fname");
-            String mi = request.getParameter("mi");
-            String lname = request.getParameter("lname");
-            String dob = request.getParameter("bdate");
-            String gender = request.getParameter("gender");
-            String con = request.getParameter("con");
-            String email = request.getParameter("email");
-            String pass = request.getParameter("pass");
+            String employee_id = request.getParameter("employee_id");
 
-            java.util.Date dt = new java.util.Date();
-            java.text.SimpleDateFormat dateTime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-            String currentTime = dateTime.format(dt);
-
+            int empID=Integer.valueOf(employee_id);
+            
             DB.initConnection();
 
-            DB.insertNewEmployee(position, fname, lname, mi, email, pass, dob, gender, con, currentTime);
+            DB.deleteEmployee(empID);
 
-            out.print("<p>Record saved successfully!</p>");
+            out.print("<p>Delete successfully!</p>");
             request.getRequestDispatcher("home.jsp").include(request, response);
             out.close();
         } catch (ClassNotFoundException | SQLException | NullPointerException ex) {

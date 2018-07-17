@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2018 at 09:15 AM
--- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.8
+-- Generation Time: Jul 17, 2018 at 07:54 AM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -60,7 +60,7 @@ CREATE TABLE `employee` (
   `birthdate` date NOT NULL,
   `gender` enum('Male','Female') NOT NULL,
   `contact_no` varchar(16) DEFAULT NULL,
-  `date_account_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_account_created` datetime NOT NULL,
   `picture` mediumblob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -73,8 +73,7 @@ INSERT INTO `employee` (`employee_id`, `position`, `first_name`, `last_name`, `m
 (2, 'Janitor', 'Dave', 'Concepcion', 'L', 'dave@gmail.com', '123', '1997-10-20', 'Male', '09111111111', '2017-11-08 09:55:23', 0x687474703a2f2f6c6f63616c686f73742f556e77696e642f696e636c756465732f696d672f656d706c6f7965654d2e706e67),
 (3, 'Conceirge', 'Reg', 'User', 'U', 'reguser@gmail.com', '123', '1990-12-25', 'Female', '9111234567', '2017-12-26 04:25:02', 0x687474703a2f2f6c6f63616c686f73742f556e77696e642f696e636c756465732f696d672f656d706c6f7965654d2e706e67),
 (10, 'Janitor', 'Mary', 'Lamb', 'J', 'marylamb@yahoo.com', '123', '1985-12-13', 'Female', '9097654321', '2017-12-26 19:24:18', 0x687474703a2f2f6c6f63616c686f73742f556e77696e642f696e636c756465732f696d672f656d706c6f796565462e706e67),
-(11, 'Tester', 'Test', 'Test', 'T', 'Test@Test.com', 'Test', '2001-01-01', 'Male', 'Test', '0000-00-00 00:00:00', ''),
-(12, 'Sales', 'Taylor', 'Ashley', 'M', 'tashley@aol.com', 'tashley@aol.com', '2018-07-01', 'Female', '(602) 495-7603', '2018-07-15 14:16:54', '');
+(11, 'Admin', 'Carah', 'Regudo', 'A', 'carahj.028@gmail.com', '123', '1995-08-17', 'Female', '012314567890', '2018-07-14 10:12:26', '');
 
 -- --------------------------------------------------------
 
@@ -580,86 +579,103 @@ ALTER TABLE `user_account`
 --
 ALTER TABLE `check_in`
   MODIFY `check_in_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
   MODIFY `feedback_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `floor`
 --
 ALTER TABLE `floor`
   MODIFY `floor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
   MODIFY `food_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `food_item`
 --
 ALTER TABLE `food_item`
   MODIFY `food_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `food_order`
 --
 ALTER TABLE `food_order`
   MODIFY `food_order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
 -- AUTO_INCREMENT for table `inquiry`
 --
 ALTER TABLE `inquiry`
   MODIFY `inquiry_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
   MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `reservation`
 --
 ALTER TABLE `reservation`
   MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `reservation_request`
 --
 ALTER TABLE `reservation_request`
   MODIFY `reservation_request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
 --
 -- AUTO_INCREMENT for table `room`
 --
 ALTER TABLE `room`
   MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
 --
 -- AUTO_INCREMENT for table `room_reserved`
 --
 ALTER TABLE `room_reserved`
   MODIFY `room_reserved_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
 --
 -- AUTO_INCREMENT for table `room_type`
 --
 ALTER TABLE `room_type`
   MODIFY `room_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
   MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `service_request`
 --
 ALTER TABLE `service_request`
   MODIFY `service_request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `user_account`
 --
 ALTER TABLE `user_account`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- Constraints for dumped tables
 --

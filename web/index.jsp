@@ -16,34 +16,61 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel='stylesheet' href='Bootstrap/css/bootstrap.min.css'>
+        <link rel="stylesheet" href="assets/css/form-elements.css">
+        <link rel="stylesheet" href="assets/css/style.css">
         <style>
             body{
                 background-image: url(Images/background.jpg);
                 background-repeat: no-repeat;
-                background-size: 100% ;
+                background-size: cover ;
             }
         </style>
     </head>
     <body style="padding: 10%;">
-        <div class="row" align="center"><h2 style="color:white ; font-weight: bold;">Salary Management System</h2></div>
-        <div class="row" align="center"><h4 style="color:white">Unwind Website</h3></div>
-        <br><br>
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <div class="form-group" id="login" >
-                    <form action="home.jsp" method="post" autocomplete="off">
-                        <center><input type="text" name="email" class="form-control" id="em" style="width: 350px" placeholder="Email Address"></center>
-                        <br>
-                        <center><input type="password" name="password" class="form-control" id="pw" style="width: 350px" placeholder="Password"></center>
-                        <br>
-                        <center><button type="submit" class="btn btn-info">Login</button></center>
-                    </form>
-                </div>         
-            </div>
-            <div class="col-md-4"></div>
+        <!-- Top content -->
+        <div class="top-content">
 
+            <div class="inner-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text">
+                            <div class="description">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                            <div class="form-top">
+
+                                <div class="row" align="center"><h2 style="color:#66ffff ; font-weight: bold;">Salary Management System</h2></div>
+                                <div class="row" align="center"><h4 style="color:#66ff99">Unwind Website</h3></div>
+                                <div class="form-top-left">
+                                    <p style="color: yellow">Enter your username and password to log on:</p>
+                                </div>
+                                <div class="form-top-right">
+                                    <i class="fa fa-lock"></i>
+                                </div>
+                            </div>
+                            <div class="form-bottom">
+                                <form role="form" action="home.jsp" method="POST" class="login-form" autocomplete="off">
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-username">Email Address</label>
+                                        <input type="text" name="email" placeholder="Email Address..." class="form-email form-control" id="em">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-password">Password</label>
+                                        <input type="password" name="password" placeholder="Password..." class="form-password form-control" id="pw">
+                                    </div>
+                                    <button type="submit" class="btn">Sign in!</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
         </div>
+    </body>
     </body>
 </html>

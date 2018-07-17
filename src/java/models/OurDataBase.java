@@ -6,6 +6,7 @@
 package models;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -66,7 +67,7 @@ public class OurDataBase {
         E.setPosition(rs.getString("position"));
         E.setFirst_name(rs.getString("first_name"));
         E.setLast_name(rs.getString("last_name"));
-        E.setMiddle_initial(rs.getString("middle_initial").charAt(0));
+        E.setMiddle_initial(rs.getString("middle_initial"));
         E.setEmail(rs.getString("email"));
         E.setPassword(rs.getString("password"));
         E.setBirthdate(rs.getString("birthdate"));
@@ -97,7 +98,7 @@ public class OurDataBase {
 
             EM.getEmp().setEmployee_id(rs.getInt("employee_id"));
             EM.getEmp().setFirst_name(rs.getString("first_name"));
-            EM.getEmp().setMiddle_initial(rs.getString("middle_initial").charAt(0));
+            EM.getEmp().setMiddle_initial(rs.getString("middle_initial"));
             EM.getEmp().setLast_name(rs.getString("last_name"));
             EM.getEmp().setPosition(rs.getString("position"));
 
@@ -139,7 +140,7 @@ public class OurDataBase {
 
             Em.setEmployee_id(rs.getInt("employee_id"));
             Em.setFirst_name(rs.getString("first_name"));
-            Em.setMiddle_initial(rs.getString("middle_initial").charAt(0));
+            Em.setMiddle_initial(rs.getString("middle_initial"));
             Em.setLast_name(rs.getString("last_name"));
 
             list.add(Em);
@@ -176,7 +177,7 @@ public class OurDataBase {
             E.setEmployee_id(rs.getInt("employee_id"));
             E.setFirst_name(rs.getString("first_name"));
             E.setLast_name(rs.getString("last_name"));
-            E.setMiddle_initial(rs.getString("middle_initial").charAt(0));
+            E.setMiddle_initial(rs.getString("middle_initial"));
             E.setPosition(rs.getString("position"));
             E.setSalary(rs.getDouble("amount"));
 
@@ -202,7 +203,7 @@ public class OurDataBase {
             E.setEmployee_id(rs.getInt("employee_id"));
             E.setFirst_name(rs.getString("first_name"));
             E.setLast_name(rs.getString("last_name"));
-            E.setMiddle_initial(rs.getString("middle_initial").charAt(0));
+            E.setMiddle_initial(rs.getString("middle_initial"));
             E.setPosition(rs.getString("position"));
             E.setSalary(rs.getDouble("amount"));
 
@@ -251,9 +252,60 @@ public class OurDataBase {
         ps.setString(4, description);
         ps.setString(5, type);
         ps.setString(6, datetime);
-        
+
         ps.executeUpdate();
 
+    }
+
+    public void insertNewEmployee(String position, String fname, String lname, String mi, String email, String password, String dob, String gender, String contact, String accCreate) throws SQLException {
+
+        Connection con = this.getDb_con();
+        String query = "INSERT INTO `employee`( `position`, `first_name`, `last_name`, `middle_initial`, `email`, `password`, `birthdate`, `gender`, `contact_no`, `date_account_created`) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        PreparedStatement ps = con.prepareStatement(query);
+
+        ps.setString(1, position);
+        ps.setString(2, fname);
+        ps.setString(3, lname);
+        ps.setString(4, mi);
+        ps.setString(5, email);
+        ps.setString(6, password);
+        ps.setString(7, dob);
+        ps.setString(8, gender);
+        ps.setString(9, contact);
+        ps.setString(10, accCreate);
+
+        ps.executeUpdate();
+    }
+    
+    public void updateEmployee(String employee_id, String position, String fname, String lname, String mi, String email, String password, String dob, String gender, String contact) throws SQLException {
+
+        Connection con = this.getDb_con();
+        String query = "UPDATE `employee` SET `position`=?,`first_name`=?,`last_name`=?,`middle_initial`=?,`email`=?,`password`=?,`birthdate`=?,`gender`=?,`contact_no`=? WHERE `employee_id`=?";
+        
+        PreparedStatement ps = con.prepareStatement(query);
+
+        ps.setString(1, position);
+        ps.setString(2, fname);
+        ps.setString(3, lname);
+        ps.setString(4, mi);
+        ps.setString(5, email);
+        ps.setString(6, password);
+        ps.setString(7, dob);
+        ps.setString(8, gender);
+        ps.setString(9, contact);
+        ps.setString(10, employee_id);
+
+        ps.executeUpdate();
+    }
+    
+    public void deleteEmployee(int id) throws SQLException{
+        Connection con=this.getDb_con();
+        String query = "DELETE FROM `employee` WHERE `employee_id`=?";
+        PreparedStatement ps=con.prepareStatement(query);
+        
+        ps.setInt(1, id);
+        
+        ps.executeUpdate();
     }
 
 //<editor-fold defaultstate="collapsed" desc="Test methods here">

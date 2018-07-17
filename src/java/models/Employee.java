@@ -25,7 +25,7 @@ public class Employee {
     private String position;
     private String first_name;
     private String last_name;
-    private char middle_initial;
+    private String middle_initial;
     private String email;
     private String password;
     private String birthdate;
@@ -44,14 +44,14 @@ public class Employee {
         this.position = "example";
         this.first_name = "example";
         this.last_name = "example";
-        this.middle_initial = 'e';
+        this.middle_initial = "e";
         this.email = "example@gmail.com";
         this.password = "example";
         this.gender = "example";
         this.contact_no = "example";
     }
 
-    public Employee(int employee_id, String position, String first_name, String last_name, char middle_initial, String email, String password, String birthdate, String gender, String contact_no, double working_hours, String working_shift) {
+    public Employee(int employee_id, String position, String first_name, String last_name, String middle_initial, String email, String password, String birthdate, String gender, String contact_no, double working_hours, String working_shift) {
         this.date_account_created = java.time.LocalDateTime.now();
         this.salary = 0.0;
 
@@ -99,11 +99,11 @@ public class Employee {
         this.last_name = last_name;
     }
 
-    public char getMiddle_initial() {
+    public String getMiddle_initial() {
         return middle_initial;
     }
 
-    public void setMiddle_initial(char middle_initial) {
+    public void setMiddle_initial(String middle_initial) {
         this.middle_initial = middle_initial;
     }
 

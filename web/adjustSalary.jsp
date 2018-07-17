@@ -33,9 +33,16 @@
         <title>Adjust Wages</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--BOOTSTRAP-->
         <link rel='stylesheet' href='Bootstrap/css/bootstrap.min.css'>
-        <script src="Bootstrap/js/jquery-331.min.js"></script>
-        <script src="Bootstrap/js/bootstrap.min.js"></script>
+        <!--DATATABLES-->
+        <link rel="stylesheet" href="assets/css/datatables.min.css">
+        <!--JQUERY-->
+        <script src="assets/js/jquery.min.js"></script>
+        <!--BOOTSTRAP JS-->
+        <script src="assets/js/bootstrap.min.js"></script>
+        <!--DATATABLES JS-->
+        <script src="assets/js/datatables.min.js"></script>
     </head>
     <body>
         <div class="row" align="center">
@@ -136,7 +143,7 @@
                     </div>
                 </div>
                 <div class="row" style="height: 500px">
-                    <table class="table" id="empTable">
+                    <table class="table table-bordered table-hover" id="empTable">
                         <thead>
                         <th>ID</th>
                         <th>First Name</th>
@@ -240,3 +247,10 @@
 
     </body>
 </html>
+
+<script>
+	$(document).ready(function(){
+		$("table").DataTable();
+	});
+
+</script>

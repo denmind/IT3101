@@ -24,9 +24,16 @@
         <title>Home</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--BOOTSTRAP-->
         <link rel='stylesheet' href='Bootstrap/css/bootstrap.min.css'>
-        <script src="Bootstrap/js/jquery-331.min.js"></script>
-        <script src="Bootstrap/js/bootstrap.min.js"></script>
+        <!--DATATABLES-->
+        <link rel="stylesheet" href="assets/css/datatables.min.css">
+        <!--JQUERY-->
+        <script src="assets/js/jquery.min.js"></script>
+        <!--BOOTSTRAP JS-->
+        <script src="assets/js/bootstrap.min.js"></script>
+        <!--DATATABLES JS-->
+        <script src="assets/js/datatables.min.js"></script>
     </head>
     <body>
         <%            Employee globalEmployee = new Employee();
@@ -75,10 +82,10 @@
                             <a href="adjustSalary.jsp" class="list-group-item">Adjust Employee Wages</a> <!-- EMPLOYEE TYPES WITH DIFFERENT SALARIES -->
                             <a href="salaryModifications.jsp" class="list-group-item">Recent Salary Modifications</a> 
                         </div>
-                        <div class="list-group"><!-- MODAL! EMPLOYEE CUD-->
+                        <div class="list-group"> <!--MODAL! EMPLOYEE CUD-->
                             <a href="#" class="list-group-item" data-toggle="modal" data-target="#addEmployee">Add New Employee</a>
-                            <a href="#" class="list-group-item" data-toggle="modal" data-target="#updateEmployee">Update Employee</a>
-                            <a href="#" class="list-group-item" data-toggle="modal" data-target="#deleteEmployee">Delete Employee</a>
+<!--                            <a href="#" class="list-group-item" data-toggle="modal" data-target="#updateEmployee">Update Employee</a>
+                            <a href="#" class="list-group-item" data-toggle="modal" data-target="#deleteEmployee">Delete Employee</a>-->
                         </div>
 
 
@@ -86,75 +93,64 @@
 
                     <!--- MODALS! -->
                     <!-- ADD NEW EMPLOYEE -->
-                    <div class="modal fade" id="addEmployee" role="dialog">
-                        <div class="modal-dialog">
-
-                            <!-- Modal content-->
+                    <div id="addEmployee" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                                    </button>
                                     <h4 class="modal-title">Add New Employee</h4>
                                 </div>
                                 <div class="modal-body">
-
-                                    <form method="POST" action="${pageContext.request.contextPath}/servlet_add">
+                                    <form method="POST" action="${pageContext.request.contextPath}/servlet_add" autocomplete="off">
                                         <fieldset>
                                             <legend style="text-align: center"><span class="glyphicon glyphicon-info-sign"></span></legend>
                                             <label for="fn">First Name</label>
-                                            <input type="text" class="form-control" placeholder="Joanne" name="fname" id="fn">
+                                            <input type="text" class="form-control" placeholder="Joanne" name="fname" id="fn" required>
                                             <br>
                                             <label for="mi">Middle Initial</label>
                                             <input type="text" class="form-control" placeholder="K" name="mi" id="mi">
                                             <br>
                                             <label for="ln">Last Name</label>
-                                            <input type="text" class="form-control" placeholder="Rowling" name="lname" id="ln">
+                                            <input type="text" class="form-control" placeholder="Rowling" name="lname" id="ln" required>
                                             <br>
                                             <label for="bd">Date of Birth:</label>
-                                            <input type="date" class="form-control" name="bdate" id="bd">
+                                            <input type="date" class="form-control" name="bdate" id="bd" required>
                                             <br>
                                             <label for="g">Gender</label>
-                                            <p style="padding-left: 10px"><input type="radio" name="gender" value="Male" id="g"> Male</p> 
+                                            <p style="padding-left: 10px"><input type="radio" name="gender" value="Male" id="g" required> Male</p> 
                                             <p style="padding-left: 10px"><input type="radio" name="gender" value="Female" id="g"> Female</p>
                                         </fieldset>
                                         <br>
                                         <fieldset>
                                             <legend style="text-align: center"><span class="glyphicon glyphicon-envelope"></span></legend>
                                             <label for="cn">Contact No.</label>
-                                            <input type="text" class="form-control" name="con" placeholder="09172348594" id="cn">
+                                            <input type="text" class="form-control" name="con" placeholder="09172348594" id="cn" required>
                                             <br>
                                             <label for="e">Email Address</label>
-                                            <input type="email" class="form-control" placeholder="chef@chefchef.com" name="email" id="e">
+                                            <input type="email" class="form-control" placeholder="chef@chefchef.com" name="email" id="e" required>
                                             <br>
                                             <label for="p">Password</label>
-                                            <input type="password" class="form-control" name="pass" id="p">
+                                            <input type="password" class="form-control" name="pass" id="p" required>
                                             <br>
                                         </fieldset>
-                                        <br>
-                                        <!--Removed working hours/shift in employee table since modification of table is not allowed
                                         <fieldset>
                                             <legend style="text-align: center"><span class="glyphicon glyphicon-user"></span></legend>
                                             <label for="pos">Employee Position</label>
                                             <input type="text" class="form-control" placeholder="Secretary" name="pos" id="pos">
-                                            <br>
-                                            <label for="wH">Employee Working Hours</label>
-                                            <p style="padding-left: 10px"><input type="radio" name="workingHours" value="4" id="wH"> 4</p> 
-                                            <p style="padding-left: 10px"><input type="radio" name="workingHours" value="8" id="wH"> 8</p>
-                                            <p style="padding-left: 10px"><input type="radio" name="workingHours" value="12" id="wH"> 12</p> 
-                                            <br>
-                                            <label for="wH">Employee Shift</label>
-                                            <p style="padding-left: 10px"><input type="radio" name="workingShift" value="AM" id="wS"> AM</p> 
-                                            <p style="padding-left: 10px"><input type="radio" name="workingShift" value="PM" id="wS"> PM</p>
-                                        </fieldset>-->
+                                        </fieldset>
+                                        <br>
+
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Add Employee</button>
                                     </form>
-
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-default" data-dismiss="modal">Add Employee</button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
 
                     <!-- UPDATE EMPLOYEE -->
                     <div class="modal fade" id="updateEmployee" role="dialog">
@@ -174,7 +170,7 @@
                                             <select class="form-control" style="width: 300px" name="id">
                                                 <!-- ID NUMBERS -->
                                                 <%                                                    for (Employee E : list) {
-                                                        out.println("<option>[" + E.getEmployee_id() + "] " + E.getFullName() + "</option>");
+                                                        out.println("<option value=" + E.getEmployee_id() + ">[" + E.getEmployee_id() + "] " + E.getFullName() + "</option>");
                                                     }
                                                 %> 
                                             </select>
@@ -236,7 +232,7 @@
                                             <input type="email" class="form-control" placeholder="chef@chefchef.com" name="email" id="e">
                                             <br>
                                             <label for="p">Password</label>
-                                            <input type="password" class="form-control" name="pass" id="p">
+                                            <input type="password" placeholder="password" class="form-control" name="pass" id="p">
                                             <br>
                                         </fieldset>
                                         <!--Removed working hours/shift in employee table since modification of table is not allowed
@@ -276,14 +272,14 @@
                                     <h4 class="modal-title">Delete Employee</h4>
                                 </div>
                                 <div class="modal-body"> 
-                                    <form method="POST" action="${pageContext.request.contextPath}/servlet_select_id">
+                                    <form method="POST" action="${pageContext.request.contextPath}/servlet_delete_id">
                                         <center>
                                             <label for="id">Select Employee ID</label>
-                                            <select class="form-control" style="width: 300px" name="id">
+                                            <select class="form-control" style="width: 300px" name="employee_id">
                                                 <!-- ID NUMBERS -->
                                                 <%
                                                     for (Employee E : list) {
-                                                        out.println("<option>[" + E.getEmployee_id() + "] " + E.getFullName() + "</option>");
+                                                        out.println("<option value=" + E.getEmployee_id() + ">[" + E.getEmployee_id() + "] " + E.getFullName() + "</option>");
                                                     }
                                                 %>
                                             </select>
@@ -292,7 +288,7 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-default delEmp" data-dismiss="modal">Delete Employee</button>
+                                    <button type="submit" class="btn btn-default delEmp" data-dismiss="modal" onclick="if (!confirm('Are you sure?')) { return false }">Delete Employee</button>
                                     <!-- onclick alert are you sure you want to delete 0 ? -->
                                     </form>
                                 </div>
@@ -302,7 +298,7 @@
                     </div>
 
                     <div class="col-md-10"> <!-- MAKE DIV SCROLLABLE -->
-                        <table class="table">
+                        <table class="table table-bordered table-hover">
                             <thead>
                             <th>ID</th>
                             <th>First Name</th>
@@ -310,7 +306,7 @@
                             <th>Last Name</th>
                             <th>Position</th>
                             <th>Salary</th>
-                            <th style="width: 200px"></th>
+                            <!--<th style="width: 200px"></th>-->
                             </thead>
                             <tbody style="overflow: auto">
 
@@ -322,7 +318,69 @@
                                         out.println("<td id='emp_ln'>" + empIter.getLast_name() + "</td>");
                                         out.println("<td id='emp_pos'>" + empIter.getPosition() + "</td>");
                                         out.println("<td id='emp_sal'>" + empIter.getSalary() + "</td>");
-                                        out.println("<td style='width: 200px'><button type='submit' class='btn btn-info' data-toggle='modal' data-target='#toUpdateEmployeeDetails'>Update</button>   <button class='btn btn-danger delEmp'>Delete</button></td>");
+//                                        out.println("<td style='width: 200px'><button type='submit' class='btn btn-info' data-toggle='modal' data-target='#toUpdateEmployeeDetails" + empIter.getEmployee_id() + "'>Update</button>   <button class='btn btn-danger' data-target='#delEmp" + empIter.getEmployee_id() + "'>Delete</button></td>");
+//
+//                                        out.println("<div id='toUpdateEmployeeDetails" + empIter.getEmployee_id() + "' class='modal fade' tabindex='-1' role='dialog'>");
+//                                        out.println("<div class='modal-dialog' role='document'>");
+//                                        out.println("<div class='modal-content'>");
+//                                        out.println("<div class='modal-header'>");
+//                                        out.println("<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span>");
+//                                        out.println("</button>");
+//                                        out.println("<h4 class='modal-title'>Update Employee</h4>");
+//                                        out.println("</div>");
+//                                        out.println("<div class='modal-body'>");
+//
+//                                        out.println("<form method='POST' action='${pageContext.request.contextPath}/servlet_update'>");
+//                                        out.println("<fieldset>");
+//                                        out.println("<legend style='text-align: center'><span class='glyphicon glyphicon-info-sign'></span></legend>");
+//                                        out.println("<label>Employee ID</label>");
+//					out.println("<input name='employee_id' type='text' class='form-control' value="+ empIter.getEmployee_id() + " readonly>");
+//                                        out.println("<br>");
+//                                        out.println("<label for='fn'>First Name</label>");
+//                                        out.println("<input type='text' class='form-control' placeholder='Joanne' value=" + empIter.getFirst_name() + " name='fname' id='fn' required>");
+//                                        out.println("<br>");
+//                                        out.println("<label for='mi'>Middle Initial</label>");
+//                                        out.println("<input type='text' class='form-control' placeholder='K' value=" + empIter.getMiddle_initial() + " name='mi' id='mi'>");
+//                                        out.println("<br>");
+//                                        out.println("<label for='ln'>Last Name</label>");
+//                                        out.println("<input type='text' class='form-control' placeholder='Rowling' value=" + empIter.getLast_name() + " name='lname' id='ln' required>");
+//                                        out.println("<br>");
+//                                        out.println("<label for='bd'>Date of Birth:</label>");
+//                                        out.println("<input type='date' class='form-control' name='bdate' value="+ empIter.getBirthdate()+ " id='bd' required>");
+//                                        out.println("<br>");
+//                                        out.println("<label for='g'>Gender</label>");
+//                                        out.println("<p style='padding-left: 10px'><input type='radio' name='gender' value='Male' id='g'> Male</p>");
+//                                        out.println("<p style='padding-left: 10px'><input type='radio' name='gender' value='Female' if='g'> Female</p>");
+//                                        out.println("<br>");
+//                                        out.println("</fieldset>");
+//                                        out.println("<br>");
+//                                        out.println("<fieldset>");
+//                                        out.println("<legend style='text-align: center'><span class='glyphicon glyphicon-envelope'></span></legend>");
+//                                        out.println("<label for='cn'>Contact No.</label>");
+//                                        out.println("<input type='text' class='form-control' value="+empIter.getContact_no()+" name='con' placeholder='09172348594' id='cn'>");
+//                                        out.println("<br>");
+//                                        out.println("<label for='e'>Email Address</label>");
+//                                        out.println("<input type='email' class='form-control' placeholder='chef@chefchef.com' value="+empIter.getEmail()+" name='email' id='e'>");
+//                                        out.println("<br>");
+//                                        out.println("<label for='p'>Password</label>");
+//                                        out.println("<input type='password' placeholder='password' class='form-control' value="+empIter.getPassword()+" name='pass' id='p'>");
+//                                        out.println("<br>");
+//                                        out.println("</fieldset>");
+//
+//                                        out.println("<fieldset>");
+//                                        out.println("<legend style='text-align: center'><span class='glyphicon glyphicon-user'></span></legend>");
+//                                        out.println("<label for='pos'>Employee Position</label>");
+//                                        out.println("<input type='text' class='form-control' placeholder='Secretary' value="+empIter.getPosition()+" name='pos' id='pos'>");
+//
+//                                        out.println("</div>");
+//                                        out.println("<div class='modal-footer'>");
+//                                        out.println("<button type='submit' class='btn btn-primary'>Update Employee</button>");
+//                                        out.println("</form>");
+//                                        out.println("<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+//                                        out.println("</div>");
+//                                        out.println("</div>");
+//                                        out.println("</div>");
+//                                        out.println("</div>");
                                         out.println("</tr>");
                                     }
 
@@ -341,10 +399,8 @@
 
 <script>
     $(document).ready(function () {
-        $(".delEmp").click(function () {
-            alert("Are you sure?");
-        });
-
+        
+        $("table").DataTable();
 
     });
 </script>

@@ -12,4 +12,8 @@
         <meta http-equiv="Refresh" content="1;url=adjustSalary.jsp">
         <title>Error</title>
     </head>
+    <body>
+        <h2>Error101:</h2>
+        <h4>Redirecting to Adjust Salary Page...</h4>
+    </body>
 </html>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2018 at 09:15 AM
--- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.8
+-- Generation Time: Jul 17, 2018 at 07:55 AM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -43,7 +43,16 @@ CREATE TABLE `modifications` (
 --
 
 INSERT INTO `modifications` (`mod_id`, `salary_id`, `amount`, `salary`, `description`, `type`, `datetime`) VALUES
-(1, 1, -200, 2800, 'Deduction', 'DEDUCTION', '2018-07-27 12:29:26');
+(1, 1, -200, 2800, 'Total Late Fine', 'DEDUCTION', '2018-07-27 12:29:26'),
+(2, 11, 300, 1606, 'why not', 'ADDITION', '2018-07-16 12:30:43'),
+(3, 11, 5000, 7400, 'why not', 'ADDITION', '2018-07-16 12:55:34'),
+(4, 10, 600, 1500, 'Helping a grandmother out', 'ADDITION', '2018-07-16 12:56:10'),
+(5, 11, 10000, 17400, 'Bonus', 'ADDITION', '2018-07-16 14:24:00'),
+(6, 1, 100000, 135000, 'Bonus', 'ADDITION', '2018-07-16 22:07:26'),
+(7, 2, 2000, 33000, 'Fine', 'DEDUCTION', '2018-07-16 22:07:57'),
+(8, 1, 200, 135200, 'Bonus', 'ADDITION', '2018-07-16 22:08:05'),
+(9, 10, 10000, 45000, 'Bonus', 'ADDITION', '2018-07-16 22:08:11'),
+(10, 1, 100, 45100, 'why not', 'ADDITION', '2018-07-17 13:41:33');
 
 -- --------------------------------------------------------
 
@@ -62,12 +71,11 @@ CREATE TABLE `salary` (
 --
 
 INSERT INTO `salary` (`sal_id`, `employee_id`, `amount`) VALUES
-(1, 1, 5000),
-(2, 2, 500),
-(3, 3, 700),
-(4, 10, 900),
-(5, 12, 650),
-(6, 11, 100);
+(1, 1, 45100),
+(2, 2, 25000),
+(3, 3, 35000),
+(10, 10, 25000),
+(11, 11, 45000);
 
 --
 -- Indexes for dumped tables
@@ -95,12 +103,14 @@ ALTER TABLE `salary`
 -- AUTO_INCREMENT for table `modifications`
 --
 ALTER TABLE `modifications`
-  MODIFY `mod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `mod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `salary`
 --
 ALTER TABLE `salary`
-  MODIFY `sal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `sal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
 -- Constraints for dumped tables
 --
@@ -110,12 +120,6 @@ ALTER TABLE `salary`
 --
 ALTER TABLE `modifications`
   ADD CONSTRAINT `mod_sal` FOREIGN KEY (`salary_id`) REFERENCES `salary` (`sal_id`);
-
---
--- Constraints for table `salary`
---
-ALTER TABLE `salary`
-  ADD CONSTRAINT `salary_employee` FOREIGN KEY (`employee_id`) REFERENCES `unwind`.`employee` (`employee_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

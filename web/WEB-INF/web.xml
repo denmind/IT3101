@@ -12,6 +12,14 @@
         <servlet-name>servlet_edit_base_salary</servlet-name>
         <servlet-class>servlets.servlet_edit_base_salary</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>servlet_delete_id</servlet-name>
+        <servlet-class>servlets.servlet_delete_id</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>servlet_update</servlet-name>
+        <servlet-class>servlets.servlet_update</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>servlet_add</servlet-name>
         <url-pattern>/servlet_add</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>servlet_edit_base_salary</servlet-name>
         <url-pattern>/servlet_edit_base_salary</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servlet_delete_id</servlet-name>
+        <url-pattern>/servlet_delete_id</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servlet_update</servlet-name>
+        <url-pattern>/servlet_update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
