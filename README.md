@@ -1,13 +1,7 @@
-IT 3101 SIA Project
+Abangan, Caboyo, Regudo
 
 CAPSTONE Project : Unwind 
 
-MODULE : Salary Management System
+MODULE : Extension module (salary management) for existing system (CAPSTONE PROJECT).
 
-MEMBERS
-	+ Abangan, Mary Veronica
-	+ Caboyo, Francis Anthony
-	+ Regudo, Carah Justine
-
-
-ALL FILES UNRELATED TO THE PROJECT (ERD,DATABASE,INSTRUCTIONS,NOTES,REMINDERS,etc.) ARE STORED INSIDE #student_resources WITH PROPER FOLDER ALLOCATION!
+Documentation is stored inside '#student_resources'
